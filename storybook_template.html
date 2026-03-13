@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幼儿有声书模板 | 请替换您的素材</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .book-container {
+            background: white;
+            width: 100%;
+            max-width: 900px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .page-container {
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .page-text {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #333;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .instructions code {
+            background: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        .footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <div class="header">
+            <h1>📚 有声书标题</h1>
+            <p>请在下方替换您的故事内容</p>
+        </div>
+
+        <!-- 使用说明 -->
+        <div class="instructions">
+            <h3>📝 使用说明</h3>
+            <ol style="margin-left: 20px; line-height: 2;">
+                <li>将图片文件命名为 <code>page_01.jpg</code>, <code>page_02.jpg</code> ... 放在同一文件夹</li>
+                <li>将音频文件命名为 <code>audio_01.mp3</code>, <code>audio_02.mp3</code> ... 放在同一文件夹</li>
+                <li>修改下方 <code>pageTexts</code> 中的故事文本</li>
+                <li>修改 <code>&lt;source src&gt;</code> 中的音频路径</li>
+                <li>保存并打开 HTML 文件即可使用</li>
+            </ol>
+        </div>
+
+        <div class="page-container">
+            <!-- 第 1 页 -->
+            <div class="page active" data-page="1">
+                <!-- 请替换 src 为您的图片路径 -->
+                <img src="page_01.jpg" alt="第1页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    <!-- 请替换为您的文本 -->
+                    在这里输入第 1 页的故事内容...
+                </div>
+
+                <audio id="audio1">
+                    <!-- 请替换为您的音频路径 -->
+                    <source src="audio_01.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 2 页 -->
+            <div class="page" data-page="2">
+                <img src="page_02.jpg" alt="第2页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 2 页的故事内容...
+                </div>
+
+                <audio id="audio2">
+                    <source src="audio_02.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 3 页 -->
+            <div class="page" data-page="3">
+                <img src="page_03.jpg" alt="第3页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 3 页的故事内容...
+                </div>
+
+                <audio id="audio3">
+                    <source src="audio_03.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 4 页 -->
+            <div class="page" data-page="4">
+                <img src="page_04.jpg" alt="第4页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 4 页的故事内容...
+                </div>
+
+                <audio id="audio4">
+                    <source src="audio_04.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 5 页 -->
+            <div class="page" data-page="5">
+                <img src="page_05.jpg" alt="第5页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 5 页的故事内容...
+                </div>
+
+                <audio id="audio5">
+                    <source src="audio_05.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 6 页 -->
+            <div class="page" data-page="6">
+                <img src="page_06.jpg" alt="第6页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 6 页的故事内容...
+                </div>
+
+                <audio id="audio6">
+                    <source src="audio_06.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 7 页 -->
+            <div class="page" data-page="7">
+                <img src="page_07.jpg" alt="第7页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 7 页的故事内容...
+                </div>
+
+                <audio id="audio7">
+                    <source src="audio_07.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 8 页 -->
+            <div class="page" data-page="8">
+                <img src="page_08.jpg" alt="第8页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 8 页的故事内容...
+                </div>
+
+                <audio id="audio8">
+                    <source src="audio_08.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 9 页 -->
+            <div class="page" data-page="9">
+                <img src="page_09.jpg" alt="第9页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 9 页的故事内容...
+                </div>
+
+                <audio id="audio9">
+                    <source src="audio_09.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
+            <!-- 第 10 页 -->
+            <div class="page" data-page="10">
+                <img src="page_10.jpg" alt="第10页插图" class="page-image"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="page-image" style="display: none;">请替换为您的图片</div>
+
+                <div class="page-text">
+                    在这里输入第 10 页的故事内容...<br><br>
+                    <strong style="font-size: 1.2em;">~ 完 ~</strong>
+                </div>
+
+                <audio id="audio10">
+                    <source src="audio_10.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="toggleAudio()">🔊 播放配音</button>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" id="prevBtn" onclick="prevPage()" disabled>⬅️ 上一页</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextPage()">下一页 ➡️</button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🥧 幼儿有声书模板 | 由葡撻哈哈 AI 提供</p>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 10;
+        let isPlaying = false;
+
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.querySelector(`[data-page="${pageNum}"]`).classList.add('active');
+
+            document.getElementById('prevBtn').disabled = (pageNum === 1);
+            document.getElementById('nextBtn').disabled = (pageNum === totalPages);
+
+            if (currentPage === totalPages) {
+                document.getElementById('nextBtn').textContent = '✅ 已完成';
+            } else {
+                document.getElementById('nextBtn').textContent = '下一页 ➡️';
+            }
+
+            // 停止当前音频
+            if (isPlaying) {
+                stopAudio();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+
+        function toggleAudio() {
+            if (isPlaying) {
+                stopAudio();
+            } else {
+                playAudio();
+            }
+        }
+
+        function playAudio() {
+            const audio = document.getElementById(`audio${currentPage}`);
+            if (audio) {
+                audio.play();
+                isPlaying = true;
+                document.querySelector('.btn-primary').textContent = '⏸️ 暂停配音';
+
+                audio.onended = function() {
+                    isPlaying = false;
+                    document.querySelector('.btn-primary').textContent = '🔊 播放配音';
+                };
+            }
+        }
+
+        function stopAudio() {
+            const audio = document.getElementById(`audio${currentPage}`);
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+            isPlaying = false;
+            document.querySelector('.btn-primary').textContent = '🔊 播放配音';
+        }
+
+        // 初始化
+        showPage(1);
+    </script>
+</body>
+</html>

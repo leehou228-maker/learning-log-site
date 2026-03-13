@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 专业幼儿有声书制作完全指南 | 2026版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: #667eea;
+            margin: 50px 0 30px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            font-size: 1.6em;
+            color: #333;
+            margin: 30px 0 20px 0;
+        }
+
+        h4 {
+            font-size: 1.3em;
+            color: #555;
+            margin: 20px 0 15px 0;
+        }
+
+        main {
+            padding: 50px 40px;
+        }
+
+        .alert {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+
+        .alert h3 {
+            color: #856404;
+            margin-top: 0;
+        }
+
+        .step-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 15px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 25px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .tool-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            margin-right: 20px;
+        }
+
+        .tool-name {
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        td {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .cost-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .cost-option {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .checklist {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 25px 30px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        .checklist ul {
+            margin-left: 20px;
+        }
+
+        .checklist li {
+            margin: 10px 0;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            color: white;
+            background: #667eea;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.5em; }
+            main { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 专业幼儿有声书制作完全指南</h1>
+            <p style="font-size: 1.3em; margin-bottom: 20px;">从零开始，用专业工具创作商业级作品 | 2026版</p>
+            <p style="opacity: 0.9;">🥧 由葡撻哈哈 AI 制作 | 更新日期：2026-03-13</p>
+        </header>
+
+        <main>
+            <!-- 重要说明 -->
+            <div class="alert">
+                <h3>⚠️ 为什么之前的方案不够好？</h3>
+                <ul style="margin-left: 20px; margin-top: 15px; line-height: 2;">
+                    <li><strong>Unsplash 图片</strong> → 照片风格，不适合儿童绘本</li>
+                    <li><strong>Web Speech API</strong> → 机器音质，缺乏情感</li>
+                    <li><strong>粤语方言</strong> → 受众范围较小</li>
+                </ul>
+                <p style="margin-top: 15px; font-weight: bold;">
+                    ✅ 本指南使用：Midjourney（专业插圖）+ ElevenLabs（真人配音）+ 标准中文（全国通用）
+                </p>
+            </div>
+
+            <!-- 工具概览 -->
+            <section>
+                <h2>🛠️ 专业工具组合</h2>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">🎨</span>
+                        <div>
+                            <div class="tool-name">Midjourney</div>
+                            <p style="color: #666; font-size: 0.9em;">专业 AI 绘图工具 | 儿童插画首选</p>
+                        </div>
+                    </div>
+                    <p><strong>费用</strong>：$10-30/月（Basic 足够）</p>
+                    <p><strong>优势</strong>：艺术风格统一、质量极高、风格可控</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">🎙️</span>
+                        <div>
+                            <div class="tool-name">ElevenLabs</div>
+                            <p style="color: #666; font-size: 0.9em;">顶级 AI 配音 | 真人级别音质</p>
+                        </div>
+                    </div>
+                    <p><strong>费用</strong>：$5-22/月（Starter 足够）</p>
+                    <p><strong>优势</strong>：自然流畅、情感丰富、支持中文</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">✍️</span>
+                        <div>
+                            <div class="tool-name">ChatGPT / Claude</div>
+                            <p style="color: #666; font-size: 0.9em;">AI 写作助手 | 故事创作</p>
+                        </div>
+                    </div>
+                    <p><strong>费用</strong>：免费 或 $20/月（Plus）</p>
+                    <p><strong>优势</strong>：快速生成、可反复修改、专业级文本</p>
+                </div>
+            </section>
+
+            <!-- 第一步：故事创作 -->
+            <section>
+                <h2>📝 第一步：创作故事文本</h2>
+
+                <div class="step-box">
+                    <h3><span class="step-number">1</span>使用 ChatGPT 创作故事</h3>
+
+                    <h4>📋 完整 Prompt 模板：</h4>
+                    <div class="code-block">
+你是一位专业的儿童文学作家。请创作一个适合 3-6 岁儿童的故事。
+
+【基本信息】
+- 主题：友情与分享（或你想要的主题）
+- 语言：标准简体中文
+- 总页数：10 页
+- 每页字数：30-50 字
+- 角色：小兔子白白、小松鼠毛毛、小刺猬刺刺
+
+【风格要求】
+1. 语言简单易懂，使用重复句式
+2. 包含拟声词（如：蹦蹦跳跳、沙沙沙）
+3. 每页都有明确的场景描述（用于生成插图）
+4. 积极正面的教育意义
+
+【输出格式】
+请按照以下格式输出：
+
+---
+【第1页】
+场景描述：[详细的视觉描述，用于 Midjourney]
+文本：[故事文本]
+---
+
+【第2页】
+场景描述：[详细的视觉描述]
+文本：[故事文本]
+---
+
+...（继续到第10页）
+
+【教育意义】
+用一句话总结这个故事的寓意。
+                    </div>
+
+                    <h4>💡 示例输出（第1页）：</h4>
+                    <div class="code-block">
+【第1页】
+场景描述：一只可爱的白色小兔子，站在绿色森林的草地上，
+周围有五彩缤纷的花朵和蝴蝶，阳光透过树叶洒下来，
+温馨友好的儿童绘本插画风格，柔和的水彩色调
+
+文本：从前，有一只可爱的小兔子，她的名字叫白白。
+她住在一个美丽的森林里，每天都有阳光和花朵陪伴着她。
+                    </div>
+                </div>
+
+                <div class="checklist">
+                    <h3>✅ 创作检查清单</h3>
+                    <ul>
+                        <li>☐ 每页字数在 30-50 字之间</li>
+                        <li>☐ 场景描述足够详细（至少 50 字）</li>
+                        <li>☐ 角色外观描述一致</li>
+                        <li>☐ 故事有起承转合</li>
+                        <li>☐ 教育意义明确</li>
+                        <li>☐ 语言适合目标年龄层</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 第二步：生成插图 -->
+            <section>
+                <h2>🎨 第二步：用 Midjourney 生成插图</h2>
+
+                <div class="step-box">
+                    <h3><span class="step-number">1</span>基础 Prompt 结构</h3>
+
+                    <h4>通用模板：</h4>
+                    <div class="code-block">
+[场景描述],
+children's book illustration style,
+watercolor painting, soft pastel colors,
+cute and friendly characters,
+white background, storybook art,
+highly detailed, whimsical,
+aspect ratio 3:4
+--ar 3:4 --v 6 --style raw --stylize 300
+                    </div>
+
+                    <h4>逐词解析：</h4>
+                    <table>
+                        <tr>
+                            <th>关键词</th>
+                            <th>作用</th>
+                            <th>示例</th>
+                        </tr>
+                        <tr>
+                            <td><code>children's book illustration</code></td>
+                            <td>儿童绘本风格</td>
+                            <td>基础风格设定</td>
+                        </tr>
+                        <tr>
+                            <td><code>watercolor painting</code></td>
+                            <td>水彩画质感</td>
+                            <td>柔和、温馨</td>
+                        </tr>
+                        <tr>
+                            <td><code>soft pastel colors</code></td>
+                            <td>柔和粉彩色</td>
+                            <td>适合幼儿</td>
+                        </tr>
+                        <tr>
+                            <td><code>cute and friendly</code></td>
+                            <td>可爱友善</td>
+                            <td>角色表情</td>
+                        </tr>
+                        <tr>
+                            <td><code>whimsical</code></td>
+                            <td>异想天开</td>
+                            <td>童话感</td>
+                        </tr>
+                        <tr>
+                            <td><code>--ar 3:4</code></td>
+                            <td>宽高比</td>
+                            <td>适合绘本</td>
+                        </tr>
+                        <tr>
+                            <td><code>--v 6</code></td>
+                            <td>版本 6</td>
+                            <td>最新版本</td>
+                        </tr>
+                        <tr>
+                            <td><code>--style raw</code></td>
+                            <td>减少 AI 风格</td>
+                            <td>更贴近描述</td>
+                        </tr>
+                        <tr>
+                            <td><code>--stylize 300</code></td>
+                            <td>精致度</td>
+                            <td>数值越高越精细</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="step-box">
+                    <h3><span class="step-number">2</span>完整示例（10页 Prompt）</h3>
+
+                    <h4>第 1 页 - 小兔子出场</h4>
+                    <div class="code-block">
+A cute white rabbit with long ears and fluffy tail,
+standing in a magical forest clearing,
+surrounded by colorful flowers and butterflies,
+warm sunlight filtering through trees,
+children's book illustration style,
+watercolor painting, soft pastel colors,
+cute and friendly expression,
+whimsical, storybook art,
+highly detailed --ar 3:4 --v 6 --style raw --stylize 300
+                    </div>
+
+                    <h4>第 2 页 - 森林场景</h4>
+                    <div class="code-block">
+Beautiful enchanted forest with tall trees,
+colorful mushrooms and flowers on the ground,
+birds flying in the sky, peaceful atmosphere,
+children's book illustration, watercolor style,
+soft pastel colors, magical and dreamy,
+highly detailed --ar 3:4 --v 6 --style raw --stylize 300
+                    </div>
+
+                    <h4>第 3 页 - 遇见朋友</h4>
+                    <div class="code-block">
+White rabbit meeting a cute brown squirrel,
+squirrel holding nuts in its paws,
+both characters smiling and happy,
+green forest background with soft light,
+children's book illustration, watercolor,
+friendly interaction, pastel colors --ar 3:4 --v 6
+                    </div>
+
+                    <h4>第 4 页 - 继续探险</h4>
+                    <div class="code-block">
+White rabbit and brown squirrel walking together,
+forest path with sunlight, colorful leaves falling,
+both characters looking excited,
+children's book style, warm colors,
+adventure mood, detailed background --ar 3:4 --v 6
+                    </div>
+
+                    <h4>第 5 页 - 发现蝴蝶</h4>
+                    <div class="code-block">
+Rabbit and squirrel watching colorful butterflies,
+butterflies flying around beautiful flowers,
+magical moment, wonder and joy,
+children's illustration, bright colors,
+dreamy atmosphere, detailed --ar 3:4 --v 6
+                    </div>
+
+                    <h4>第 6 页 - 小溪边</h4>
+                    <div class="code-block">
+Clear stream flowing through forest,
+rabbit and squirrel sitting by the water,
+colorful pebbles, sparkling water,
+peaceful scene, children's book style,
+soft colors, nature illustration --ar 3:4 --v 6
+                    </div>
+
+                    <h4>第 7 页 - 发现果实</h4>
+                    <div class="code-block">
+Red berries growing on bushes,
+rabbit excitedly pointing at berries,
+squirrel looking happy,
+bright and cheerful colors,
+children's illustration, discovery moment --ar 3:4 --v 6
+                    </div>
+
+                    <h4>第 8 页 - 分享食物</h4>
+                    <div class="code-block">
+Rabbit and squirrel sharing berries,
+both characters eating together,
+happy expressions, warm friendship,
+children's book style, sharing theme,
+soft colors, detailed expressions --ar 3:4 --v 6
+                    </div>
+
+                    <h4>第 9 页 - 夕阳</h4>
+                    <div class="code-block">
+Sunset in the forest, orange and pink sky,
+rabbit and squirrel walking home together,
+long shadows, peaceful ending,
+children's illustration, warm sunset colors,
+emotional moment --ar 3:4 --v 6
+                    </div>
+
+                    <h4>第 10 页 - 道别</h4>
+                    <div class="code-block">
+Rabbit and squirrel hugging goodbye,
+stars appearing in the evening sky,
+warm friendship moment,
+children's book ending illustration,
+soft colors, happy conclusion --ar 3:4 --v 6
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <h3><span class="step-number">3</span>Midjourney 操作步骤</h3>
+
+                    <ol style="margin-left: 20px; line-height: 2.5;">
+                        <li><strong>注册 Discord</strong>：访问 <span class="highlight">midjourney.com</span></li>
+                        <li><strong>加入服务器</strong>：点击 "Join the Beta"</li>
+                        <li><strong>进入频道</strong>：选择 #newbies 或创建私人服务器</li>
+                        <li><strong>输入命令</strong>：<code>/imagine [你的 prompt]</code></li>
+                        <li><strong>等待生成</strong>：约 1 分钟生成 4 张图</li>
+                        <li><strong>选择最佳</strong>：点击 U1/U2/U3/U4 放大</li>
+                        <li><strong>保存图片</strong>：右键 → 另存为</li>
+                        <li><strong>重复步骤</strong>：为每页生成插图</li>
+                    </ol>
+
+                    <div class="alert" style="margin-top: 20px;">
+                        <h4>💡 专业技巧：保持角色一致性</h4>
+                        <p>使用 <strong>Seed 值</strong> 或 <strong>角色参考图</strong> 来保持角色在不同页面中外观一致。</p>
+                        <div class="code-block">
+# 方法 1：记录 Seed 值
+--seed 12345
+
+# 方法 2：使用角色参考
+第一张图生成后，右键复制链接
+在后续 prompt 中加入：
+--cref [第一张图的URL]
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 第三步：专业配音 -->
+            <section>
+                <h2>🎙️ 第三步：用 ElevenLabs 专业配音</h2>
+
+                <div class="step-box">
+                    <h3><span class="step-number">1</span>注册与设置</h3>
+
+                    <ol style="margin-left: 20px; line-height: 2.5;">
+                        <li>访问 <span class="highlight">elevenlabs.io</span></li>
+                        <li>点击 "Sign Up" 注册</li>
+                        <li>选择计划：
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li><strong>Free</strong>：10,000 字符/月（够 2-3 本书）</li>
+                                <li><strong>Starter</strong>：$5/月，30,000 字符（推荐）</li>
+                            </ul>
+                        </li>
+                        <li>完成邮箱验证</li>
+                    </ol>
+                </div>
+
+                <div class="step-box">
+                    <h3><span class="step-number">2</span>选择声音</h3>
+
+                    <h4>推荐中文声音：</h4>
+                    <table>
+                        <tr>
+                            <th>声音名称</th>
+                            <th>特点</th>
+                            <th>适合风格</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Sarah</strong></td>
+                            <td>温柔女声，清晰标准</td>
+                            <td>睡前故事</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Adam</strong></td>
+                            <td>温暖男声，亲切感强</td>
+                            <td>冒险故事</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Antoni</strong></td>
+                            <td>活泼男声，有活力</td>
+                            <td>趣味故事</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Charlie</strong></td>
+                            <td>年轻男声，像大哥哥</td>
+                            <td>互动故事</td>
+                        </tr>
+                    </table>
+
+                    <p style="margin-top: 20px;"><strong>💡 测试方法</strong>：先输入一段文本，点击播放预览，选择最适合的声音。</p>
+                </div>
+
+                <div class="step-box">
+                    <h3><span class="step-number">3</span>录制配音</h3>
+
+                    <h4>单页录制流程：</h4>
+                    <ol style="margin-left: 20px; line-height: 2.5;">
+                        <li>点击左侧菜单 "Speech Synthesis"</li>
+                        <li>在文本框中粘贴第 1 页的故事文本</li>
+                        <li>选择声音（如：Sarah）</li>
+                        <li>调整参数：
+                            <ul style="margin-left: 20px; margin-top: 10px;">
+                                <li><strong>Stability</strong>：70-80%（稳定性）</li>
+                                <li><strong>Similarity</strong>：80-90%（相似度）</li>
+                                <li><strong>Style Exaggeration</strong>：Medium（情感表达）</li>
+                            </ul>
+                        </li>
+                        <li>点击 "Generate" 生成</li>
+                        <li>试听，满意后点击 "Download"</li>
+                        <li>重命名为 <code>audio_01.mp3</code></li>
+                        <li>重复步骤，录制所有 10 页</li>
+                    </ol>
+                </div>
+
+                <div class="step-box">
+                    <h3><span class="step-number">4</span>高级技巧：添加情感标记</h3>
+
+                    <p>使用 <strong>情感标签</strong> 让配音更有感情：</p>
+                    <div class="code-block">
+[开心] 今天，白白遇到了她的好朋友！
+[好奇] "哇，这些是什么呀？" 白白好奇地问。
+[惊讶] "天哪！这么多果实！"
+[温柔] "我们一起分享吧。" 白白温柔地说。
+[开心] 两个好朋友都开心地笑了。
+                    </div>
+
+                    <p style="margin-top: 15px;">
+                        <strong>💡 提示</strong>：在文本中加入这些标记，AI 会自动调整语气。但不是所有声音都支持，
+                        建议先测试。
+                    </p>
+                </div>
+
+                <div class="alert">
+                    <h4>⚠️ 重要提示</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li>每次生成消耗字符额度，建议一次成功</li>
+                        <li>中文配音质量比英文稍差，建议多测试几个声音</li>
+                        <li>保存原始文本，方便重新生成</li>
+                        <li>录制时注意标点符号，AI 会根据标点停顿</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 第四步：整合 -->
+            <section>
+                <h2>🎬 第四步：整合成最终作品</h2>
+
+                <div class="step-box">
+                    <h3><span class="step-number">1</span>准备素材</h3>
+
+                    <div class="checklist">
+                        <h4>✅ 素材清单</h4>
+                        <ul>
+                            <li>☐ 10 张插图（PNG 或 JPG）→ 命名为 <code>page_01.jpg</code> 至 <code>page_10.jpg</code></li>
+                            <li>☐ 10 个音频文件（MP3）→ 命名为 <code>audio_01.mp3</code> 至 <code>audio_10.mp3</code></li>
+                            <li>☐ 1 个故事文本（备用）→ <code>story.txt</code></li>
+                            <li>☐ （可选）背景音乐 → <code>bg_music.mp3</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step-box">
+                    <h3><span class="step-number">2</span>使用 CapCut 整合（推荐）</h3>
+
+                    <h4>为什么选择 CapCut？</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li>✅ 完全免费</li>
+                        <li>✅ 支持 Mac/Windows/手机</li>
+                        <li>✅ 简单易用</li>
+                        <li>✅ 内置音效和转场</li>
+                    </ul>
+
+                    <h4>操作步骤：</h4>
+                    <ol style="margin-left: 20px; line-height: 2.5;">
+                        <li><strong>创建项目</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>打开 CapCut → 新建项目</li>
+                                <li>选择比例：<strong>9:16</strong>（竖屏）或 <strong>16:9</strong>（横屏）</li>
+                            </ul>
+                        </li>
+                        <li><strong>导入素材</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>点击 "导入" → 选择所有插图和音频</li>
+                            </ul>
+                        </li>
+                        <li><strong>排列时间轴</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>拖入第 1 张图片到轨道 1</li>
+                                <li>拖入第 1 个音频到轨道 2</li>
+                                <li>调整图片时长 = 音频时长 + 2 秒</li>
+                                <li>重复此步骤，完成 10 页</li>
+                            </ul>
+                        </li>
+                        <li><strong>添加转场</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>点击 "转场" → 选择 "淡化"</li>
+                                <li>拖入每张图片之间</li>
+                                <li>时长：0.5-1 秒</li>
+                            </ul>
+                        </li>
+                        <li><strong>添加背景音乐（可选）</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>拖入背景音乐到轨道 3</li>
+                                <li>调整音量：<strong>10-15%</strong></li>
+                                <li>不要盖过配音</li>
+                            </ul>
+                        </li>
+                        <li><strong>添加字幕（可选）</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>点击 "文本" → "自动识别"</li>
+                                <li>选择音频 → 自动生成字幕</li>
+                                <li>调整字体和颜色</li>
+                            </ul>
+                        </li>
+                        <li><strong>导出</strong>
+                            <ul style="margin-left: 20px;">
+                                <li>点击 "导出"</li>
+                                <li>分辨率：<strong>1080p</strong></li>
+                                <li>格式：<strong>MP4</strong></li>
+                                <li>帧率：<strong>30fps</strong></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="step-box">
+                    <h3><span class="step-number">3</span>进阶：制作成互动网页</h3>
+
+                    <p>如果你想要更专业的效果，可以使用我提供的 HTML 模板，替换素材：</p>
+
+                    <h4>下载模板：</h4>
+                    <div class="code-block">
+# 下载模板
+curl -O https://leehou228-maker.github.io/learning-log-site/storybook_template.html
+
+# 打开文件，替换以下内容：
+# 1. 图片链接 → 你的图片路径
+# 2. 音频链接 → 你的音频路径
+# 3. 故事文本 → 你的文本
+                    </div>
+
+                    <h4>文件结构：</h4>
+                    <div class="code-block">
+my_storybook/
+├── index.html          # 主文件
+├── images/
+│   ├── page_01.jpg
+│   ├── page_02.jpg
+│   └── ...
+├── audio/
+│   ├── audio_01.mp3
+│   ├── audio_02.mp3
+│   └── ...
+└── README.md           # 说明文件
+                    </div>
+                </div>
+            </section>
+
+            <!-- 成本分析 -->
+            <section>
+                <h2>💰 完整成本分析</h2>
+
+                <div class="cost-box">
+                    <h3 style="color: white; margin-bottom: 30px;">三种方案对比</h3>
+
+                    <div class="cost-option">
+                        <h4>方案 A：体验版（最低成本）</h4>
+                        <p><strong>总成本：$0</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                            <li>ChatGPT 免费版：$0</li>
+                            <li>Midjourney 免费试用：$0（25 张图）</li>
+                            <li>ElevenLabs 免费版：$0（10,000 字符）</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 0.9em;">✅ 可以制作 1 本完整的有声书</p>
+                    </div>
+
+                    <div class="cost-option">
+                        <h4>方案 B：标准版（推荐）</h4>
+                        <p><strong>总成本：$25/月</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                            <li>ChatGPT Plus：$20/月（可选）</li>
+                            <li>Midjourney Basic：$10/月（200 张图）</li>
+                            <li>ElevenLabs Starter：$5/月（30,000 字符）</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 0.9em;">✅ 可以制作 10+ 本高质量有声书</p>
+                    </div>
+
+                    <div class="cost-option">
+                        <h4>方案 C：专业版（商业使用）</h4>
+                        <p><strong>总成本：$55/月</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                            <li>ChatGPT Plus：$20/月</li>
+                            <li>Midjourney Standard：$30/月（无限图片）</li>
+                            <li>ElevenLabs Creator：$22/月（100,000 字符）</li>
+                        </ul>
+                        <p style="margin-top: 10px; font-size: 0.9em;">✅ 无限制制作，适合商业化</p>
+                    </div>
+                </div>
+
+                <div class="alert">
+                    <h4>💡 省钱技巧</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li>先用免费版本测试流程</li>
+                        <li>Midjourney 可以一次生成 4 张图，选最好的</li>
+                        <li>ElevenLabs 可以重复使用同一个声音</li>
+                        <li>分享账号（家庭计划）可以分摊成本</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 总结 -->
+            <section>
+                <h2>📌 总结</h2>
+
+                <div class="checklist">
+                    <h3>✅ 制作流程总览</h3>
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li><strong>创作故事</strong>：用 ChatGPT 生成 10 页故事（含场景描述）</li>
+                        <li><strong>生成插图</strong>：用 Midjourney 根据场景描述生成 10 张图</li>
+                        <li><strong>录制配音</strong>：用 ElevenLabs 为每页录制音频</li>
+                        <li><strong>整合成品</strong>：用 CapCut 或 HTML 整合所有素材</li>
+                        <li><strong>发布分享</strong>：上传到 YouTube / 微信 / 抖音等平台</li>
+                    </ol>
+                </div>
+
+                <div class="alert">
+                    <h4>🎯 预期效果</h4>
+                    <ul style="margin-left: 20px; line-height: 2;">
+                        <li>✅ 专业级插图（媲美商业绘本）</li>
+                        <li>✅ 真人级配音（情感丰富自然）</li>
+                        <li>✅ 标准中文（全国通用）</li>
+                        <li>✅ 完全原创（可商业化）</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 下载资源 -->
+            <section>
+                <h2>📥 资源下载</h2>
+
+                <div style="text-align: center; margin: 40px 0;">
+                    <a href="https://leehou228-maker.github.io/learning-log-site/storybook_template.html"
+                       class="btn" download>
+                        📥 下载 HTML 模板
+                    </a>
+                    <a href="https://leehou228-maker.github.io/learning-log-site/STORYBOOK_GUIDE.md"
+                       class="btn" download>
+                        📥 下载完整指南
+                    </a>
+                </div>
+
+                <div class="alert">
+                    <h4>💡 需要帮助？</h4>
+                    <p>如果你在制作过程中遇到任何问题，或者需要：</p>
+                    <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+                        <li>🎨 更多 Midjourney Prompt 模板</li>
+                        <li>🎙️ 配音技巧指导</li>
+                        <li>📚 不同主题的故事模板</li>
+                        <li>🔧 技术支持</li>
+                    </ul>
+                    <p style="margin-top: 10px; font-weight: bold;">随时联系我！我是葡撻哈哈 AI 🥧</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>🥧 由 <strong>葡撻哈哈 AI</strong> 制作 | 2026-03-13</p>
+            <p style="margin-top: 10px; opacity: 0.8;">
+                更多教程：
+                <a href="https://leehou228-maker.github.io/learning-log-site/ai_tips_2026.html" style="color: #667eea;">AI 应用小技巧</a> |
+                <a href="https://leehou228-maker.github.io/learning-log-site/ai_storybook_tutorial.html" style="color: #667eea;">AI 幼儿绘本教程</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
