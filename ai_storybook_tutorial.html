@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 AI 幼兒繪本與有聲書製作完全教程 | 2026 圖文版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        
+        main {
+            padding: 50px 40px;
+        }
+        
+        h2 {
+            font-size: 2em;
+            color: #667eea;
+            margin: 40px 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h3 {
+            font-size: 1.6em;
+            color: #333;
+            margin: 30px 0 15px 0;
+        }
+        
+        .skill-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 15px;
+        }
+        
+        .skill-title {
+            font-size: 1.4em;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tool-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .tool-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .tool-icon {
+            font-size: 3em;
+            margin-right: 15px;
+        }
+        
+        .tool-name {
+            font-size: 1.8em;
+            color: #333;
+        }
+        
+        .step-box {
+            background: white;
+            border-left: 4px solid #f093fb;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 0.95em;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .warning {
+            background: #f8d7da;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #721c24;
+        }
+        
+        .success {
+            background: #d4edda;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #155724;
+        }
+        
+        .workflow {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .workflow-step {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .tip-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .progress-step {
+            text-align: center;
+            flex: 1;
+            position: relative;
+        }
+        
+        .progress-step::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #667eea;
+        }
+        
+        .progress-step:last-child::after {
+            content: '';
+        }
+        
+        .progress-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .progress-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .progress-desc {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+            background: #667eea;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            .progress-tracker {
+                flex-direction: column;
+            }
+            
+            .progress-step::after {
+                content: '↓';
+                right: auto;
+                top: auto;
+                bottom: -30px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 AI 幼兒繪本與有聲書製作完全教程</h1>
+            <p class="subtitle">從零開始，用 AI 創作專業級兒童內容 | 2026 圖文版</p>
+            <p style="margin-top: 20px; opacity: 0.9;">🥧 由葡撻哈哈 AI 製作 | 更新日期：2026-03-13</p>
+        </header>
+        
+        <main>
+            <!-- 學習目標 -->
+            <section>
+                <h2>🎯 課程學習目標</h2>
+                
+                <div class="skill-box">
+                    <div class="skill-title">📚 完成本課程後，你將會：</div>
+                    <ul style="line-height: 2; margin-left: 20px;">
+                        <li>✅ 熟練使用 <strong>Midjourney / Stable Diffusion</strong> 生成故事插圖</li>
+                        <li>✅ 利用 <strong>ChatGPT / Claude</strong> 協作創作幼兒故事文本</li>
+                        <li>✅ 掌握 <strong>Runway / Pika</strong> 製作動態故事場景</li>
+                        <li>✅ 學會使用 <strong>ElevenLabs / Azure Speech</strong> 生成專業人聲</li>
+                        <li>✅ 能夠整合所有素材，製作完整的幼兒繪本與有聲書</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- 流程概覽 -->
+            <section>
+                <h2>🗺️ 製作流程概覽</h2>
+                
+                <div class="progress-tracker">
+                    <div class="progress-step">
+                        <div class="progress-circle">1</div>
+                        <div class="progress-label">文本創作</div>
+                        <div class="progress-desc">ChatGPT/Claude</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">2</div>
+                        <div class="progress-label">插圖生成</div>
+                        <div class="progress-desc">Midjourney/SD</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">3</div>
+                        <div class="progress-label">動畫製作</div>
+                        <div class="progress-desc">Runway/Pika</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">4</div>
+                        <div class="progress-label">配音錄製</div>
+                        <div class="progress-desc">ElevenLabs</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="progress-circle">5</div>
+                        <div class="progress-label">最終整合</div>
+                        <div class="progress-desc">輸出成品</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 第一部分：文本創作 -->
+            <section>
+                <h2>📝 第一部分：故事文本創作</h2>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">💬</span>
+                        <div>
+                            <div class="tool-name">ChatGPT / Claude</div>
+                            <p style="color: #666; font-size: 0.9em;">AI 文本生成工具</p>
+                        </div>
+                    </div>
+                    
+                    <h3>🔧 操作步驟</h3>
+                    
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <strong>選擇故事主題</strong>
+                        <p style="margin-top: 10px;">
+                            例如：動物冒險、友情故事、數學啟蒙、情緒管理等
+                        </p>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <strong>使用 Prompt 公式</strong>
+                        <div class="code-block">
+你是一位專業的兒童故事作家。請創作一個適合3-6歲兒童的故事，主題是[友情與分享]。
+
+要求：
+1. 字數：300-500字
+2. 結構：開頭（介紹角色）→ 中間（遇到問題）→ 結尾（解決問題）
+3. 語言：簡單易懂，使用重複句式
+4. 包含3個場景描述（用於生成插圖）
+5. 教育意義：明確的道德教訓
+
+輸出格式：
+【標題】
+【場景1】（適合生成插圖的描述）
+【故事文本】
+【場景2】
+【故事文本】
+【場景3】
+【故事文本】
+【教育意義】
+                        </div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">3</span>
+                        <strong>優化文本</strong>
+                        <p style="margin-top: 10px;">
+                            讓 AI 根據需要調整：
+                        </p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>「請將語言改得更適合幼兒」</li>
+                            <li>「請加入更多感官描述（顏色、聲音、觸感）」</li>
+                            <li>「請將故事改為粵語版本」</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>💡 專業技巧：</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>使用 <span class="highlight">Claude</span> 處理長文本，上下文更長</li>
+                        <li>使用 <span class="highlight">ChatGPT</span> 快速迭代創意</li>
+                        <li>要求 AI 同時生成 <strong>圖片提示詞 (Image Prompts)</strong></li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- 第二部分：插圖生成 -->
+            <section>
+                <h2>🎨 第二部分：故事插圖生成</h2>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">🎭</span>
+                        <div>
+                            <div class="tool-name">Midjourney</div>
+                            <p style="color: #666; font-size: 0.9em;">專業 AI 繪圖工具 | Discord 平台</p>
+                        </div>
+                    </div>
+                    
+                    <h3>🔧 詳細操作步驟</h3>
+                    
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <strong>加入 Discord 伺服器</strong>
+                        <p style="margin-top: 10px;">
+                            訪問 <span class="highlight">midjourney.com</span> 並加入官方 Discord
+                        </p>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <strong>基本指令格式</strong>
+                        <div class="code-block">
+/imagine [描述] --v [版本] --ar [比例] --style [風格]
+                        </div>
+                        <p style="margin-top: 10px;">
+                            <strong>示例：</strong>
+                        </p>
+                        <div class="code-block">
+/imagine a cute rabbit wearing a backpack, forest background, 
+children book illustration style, soft pastel colors, 
+whimsical, friendly --v 6 --ar 3:4 --style raw
+                        </div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">3</span>
+                        <strong>幼兒繪本專用參數</strong>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>參數</th>
+                                <th>建議值</th>
+                                <th>說明</th>
+                            </tr>
+                            <tr>
+                                <td><code>--ar</code></td>
+                                <td>3:4 或 4:3</td>
+                                <td>橫向或縱向適合繪本</td>
+                            </tr>
+                            <tr>
+                                <td><code>--v</code></td>
+                                <td>6 或 5.2</td>
+                                <td>V6更照片級，V5.2更插畫風格</td>
+                            </tr>
+                            <tr>
+                                <td><code>--style</code></td>
+                                <td>raw 或 expressive</td>
+                                <td>raw 減少AI風格，expressive 更藝術</td>
+                            </tr>
+                            <tr>
+                                <td><code>--stylize</code></td>
+                                <td>200-400</td>
+                                <td>數值越高越精緻</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">4</span>
+                        <strong>風格關鍵詞庫</strong>
+                        <div class="code-block">
+【幼兒繪本常用風格】
+• children book illustration（兒童書插圖）
+• watercolor style（水彩風格）
+• soft pastel colors（柔和粉彩）
+• whimsical（異想天開）
+• friendly and cute（友善可愛）
+• simple shapes（簡單形狀）
+• bold outlines（粗輪廓）
+• storybook art（故事書藝術）
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">🖼️</span>
+                        <div>
+                            <div class="tool-name">Stable Diffusion</div>
+                            <p style="color: #666; font-size: 0.9em;">開源 AI 繪圖 | 免費本地運行</p>
+                        </div>
+                    </div>
+                    
+                    <h3>🔧 線上版本操作</h3>
+                    
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <strong>使用 Stability AI 網頁版</strong>
+                        <p style="margin-top: 10px;">
+                            訪問 <span class="highlight">stability.ai</span> 或使用 Hugging Face Spaces
+                        </p>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <strong>推薦參數設定</strong>
+                        <div class="code-block">
+Prompt: [你的描述]
+Negative Prompt: ugly, deformed, realistic, photo
+Steps: 30-50
+CFG Scale: 7-9
+Sampler: DPM++ 2M Karras
+Size: 1024x1024 或 832x1216
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>💡 Midjourney vs Stable Diffusion：</strong>
+                    <p style="margin-top: 10px;">
+                        <strong>Midjourney</strong> = 更藝術、更易用、每月 $10<br>
+                        <strong>Stable Diffusion</strong> = 免費、可控性高、需技術知識
+                    </p>
+                </div>
+            </section>
+            
+            <!-- 第三部分：動畫製作 -->
+            <section>
+                <h2>🎬 第三部分：圖生動畫</h2>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">🎥</span>
+                        <div>
+                            <div class="tool-name">Runway ML</div>
+                            <p style="color: #666; font-size: 0.9em;">專業 AI 視頻生成 | 最多功能</p>
+                        </div>
+                    </div>
+                    
+                    <h3>🔧 核心功能</h3>
+                    
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <strong>圖生視頻 (Image to Video)</strong>
+                        <p style="margin-top: 10px;">
+                            上傳插圖，讓 AI 添加動態效果
+                        </p>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <strong>Prompt 公式</strong>
+                        <div class="code-block">
+Subject + Action + Style + Tone
+
+示例：
+"A cute rabbit jumping happily in a forest, 
+children animation style, cheerful tone"
+                        </div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">3</span>
+                        <strong>進階工具</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Extend</strong> - 延長視頻長度</li>
+                            <li><strong>Inpainting</strong> - 修改視頻特定區域</li>
+                            <li><strong>Motion Brush</strong> - 筆刷指定動態區域</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">🎨</span>
+                        <div>
+                            <div class="tool-name">Pika Labs</div>
+                            <p style="color: #666; font-size: 0.9em;">電影級短片生成 | 最適合故事</p>
+                        </div>
+                    </div>
+                    
+                    <h3>🔧 操作流程</h3>
+                    
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <strong>文字轉視頻</strong>
+                        <div class="code-block">
+Character + Environment + Motion + Style
+
+示例：
+"A cute robot watering a plant on Mars, 
+cheerful music, Pixar-style animation"
+                        </div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <strong>首尾幀控制</strong>
+                        <p style="margin-top: 10px;">
+                            上傳開始和結束畫面，AI 生成中間動畫
+                        </p>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">3</span>
+                        <strong>優勢</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>✅ 電影級燈光效果</li>
+                            <li>✅ 自然動態捕捉</li>
+                            <li>✅ 快速生成（免費計劃）</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>💡 選擇建議：</strong>
+                    <p style="margin-top: 10px;">
+                        <strong>Runway</strong> = 需要精細編輯控制<br>
+                        <strong>Pika</strong> = 快速生成電影感短片<br>
+                        <strong>Sora (OpenAI)</strong> = 最高質量（尚未公開）
+                    </p>
+                </div>
+            </section>
+            
+            <!-- 第四部分：TTS 配音 -->
+            <section>
+                <h2>🎙️ 第四部分：專業人聲生成</h2>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">🗣️</span>
+                        <div>
+                            <div class="tool-name">ElevenLabs</div>
+                            <p style="color: #666; font-size: 0.9em;">頂級 AI 語音 | 支持聲音複製</p>
+                        </div>
+                    </div>
+                    
+                    <h3>🔧 完整操作流程</h3>
+                    
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <strong>註冊帳號</strong>
+                        <p style="margin-top: 10px;">
+                            訪問 <span class="highlight">elevenlabs.io</span>，免費計劃每月 10,000 字符
+                        </p>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <strong>選擇聲音</strong>
+                        <p style="margin-top: 10px;">幼兒故事推薦：</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Adam</strong> - 溫和男聲</li>
+                            <li><strong>Antoni</strong> - 活潑男聲</li>
+                            <li><strong>Bella</strong> - 溫柔女聲</li>
+                            <li><strong>Domi</strong> - 年輕女聲</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">3</span>
+                        <strong>文字轉語音</strong>
+                        <div class="code-block">
+【輸入文本】
+"從前從前，有一隻可愛的小兔子..."
+
+【調整參數】
+- Stability: 70-80%（穩定性）
+- Similarity: 80-90%（相似度）
+- Style Exaggeration: 中等
+                        </div>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">4</span>
+                        <strong>聲音複製（高級功能）</strong>
+                        <p style="margin-top: 10px;">
+                            上傳 1-2 分鐘音頻樣本，AI 會複製該聲音
+                        </p>
+                        <p style="margin-top: 10px;">
+                            <span class="warning">⚠️ 注意：需獲得原聲音授權</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <span class="tool-icon">☁️</span>
+                        <div>
+                            <div class="tool-name">Azure Speech Service</div>
+                            <p style="color: #666; font-size: 0.9em;">微軟雲端 TTS | 企業級穩定</p>
+                        </div>
+                    </div>
+                    
+                    <h3>🔧 快速開始</h3>
+                    
+                    <div class="step-box">
+                        <span class="step-number">1</span>
+                        <strong>創建 Azure 帳號</strong>
+                        <p style="margin-top: 10px;">
+                            免費層級：每月 500 萬字符
+                        </p>
+                    </div>
+                    
+                    <div class="step-box">
+                        <span class="step-number">2</span>
+                        <strong>使用 SSML 標記</strong>
+                        <div class="code-block">
+&lt;speak version="1.0" xmlns="..." xml:lang="zh-HK"&gt;
+    &lt;voice name="zh-HK-HiuGaNe"&gt;
+        從前從前，有一隻&lt;emphasis&gt;可愛的&lt;/emphasis&gt;小兔子。
+        &lt;break time="500ms"/&gt;
+        佢住喺一個美麗嘅森林入面。
+    &lt;/voice&gt;
+&lt;/speak&gt;
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>💡 教育場景專業技巧：</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>使用 <span class="highlight">[pause]</span> 標記添加停頓</li>
+                        <li>使用 <span class="highlight">[emphasis]</span> 強調關鍵詞</li>
+                        <li>使用 <span class="highlight">[break]</span> 控制節奏</li>
+                        <li>調整 <span class="highlight">語速 (speaking rate)</span> 至 0.8-0.9x</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- 第五部分：最終整合 -->
+            <section>
+                <h2>🎯 第五部分：完整整合流程</h2>
+                
+                <div class="workflow">
+                    <h3 style="color: white; margin-bottom: 20px;">📊 專業工作流程</h3>
+                    
+                    <div class="workflow-step">
+                        <h4>第一步：準備素材</h4>
+                        <ul style="margin-left: 20px;">
+                            <li>✓ 故事文本（已分段）</li>
+                            <li>✓ 3-5 張插圖（PNG/JPG）</li>
+                            <li>✓ 動畫片段（MP4，可選）</li>
+                            <li>✓ 配音檔案（MP3/WAV）</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <h4>第二步：使用剪輯工具</h4>
+                        <p style="margin-top: 10px;">
+                            <strong>推薦工具：</strong>
+                        </p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>CapCut</strong> - 免費、易用（手機/電腦）</li>
+                            <li><strong>iMovie</strong> - Mac 用戶免費</li>
+                            <li><strong>DaVinci Resolve</strong> - 專業級免費軟件</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <h4>第三步：整合步驟</h4>
+                        <ol style="margin-left: 20px;">
+                            <li>導入所有素材</li>
+                            <li>按故事順序排列插圖</li>
+                            <li>添加配音到時間軸</li>
+                            <li>根據配音調整每張圖的時長</li>
+                            <li>（可選）添加動畫片段</li>
+                            <li>添加背景音樂（音量 10-20%）</li>
+                            <li>添加轉場效果（淡入淡出）</li>
+                            <li>輸出影片（MP4，1080p）</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>💡 專業技巧：</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>每頁展示時間：<span class="highlight">5-8 秒</span></li>
+                        <li>背景音樂音量：<span class="highlight">10-20%</span></li>
+                        <li>轉場時間：<span class="highlight">0.5-1 秒</span></li>
+                        <li>總時長：<span class="highlight">2-5 分鐘</span>（適合幼兒注意力）</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- 成本分析 -->
+            <section>
+                <h2>💰 成本分析（2026 年）</h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>工具</th>
+                            <th>免費額度</th>
+                            <th>付費計劃</th>
+                            <th>建議</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ChatGPT</strong></td>
+                            <td>足夠基本使用</td>
+                            <td>$20/月</td>
+                            <td>先用免費版</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Midjourney</strong></td>
+                            <td>無</td>
+                            <td>$10-30/月</td>
+                            <td>Basic 計劃足夠</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stable Diffusion</strong></td>
+                            <td>完全免費</td>
+                            <td>-$-</td>
+                            <td>預算有限首選</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Runway</strong></td>
+                            <td>125 秒/月</td>
+                            <td>$12-28/月</td>
+                            <td>免費版試用</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pika</strong></td>
+                            <td>每日免費額度</td>
+                            <td>$8-28/月</td>
+                            <td>快速生成首選</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ElevenLabs</strong></td>
+                            <td>10K 字符/月</td>
+                            <td>$5-22/月</td>
+                            <td>Starter 計劃</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="success" style="margin-top: 20px; padding: 20px; border-radius: 10px;">
+                    <strong>💡 最低成本方案：</strong> 使用 Stable Diffusion（免費）+ ChatGPT（免費）+ ElevenLabs（免費）= <strong>完全免費製作！</strong>
+                </div>
+            </section>
+            
+            <!-- 總結 -->
+            <section>
+                <h2>📌 課程總結</h2>
+                
+                <div class="skill-box">
+                    <h3>🎯 你已經學會：</h3>
+                    <ul style="line-height: 2; margin-left: 20px; margin-top: 15px;">
+                        <li>✅ 使用 ChatGPT/Claude 創作幼兒故事</li>
+                        <li>✅ 用 Midjourney/SD 生成專業插圖</li>
+                        <li>✅ 用 Runway/Pika 製作動態場景</li>
+                        <li>✅ 用 ElevenLabs 生成專業配音</li>
+                        <li>✅ 整合所有素材製作完整作品</li>
+                    </ul>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>🚀 下一步：</strong>
+                    <p style="margin-top: 10px;">
+                        1. 選擇一個簡單的故事主題<br>
+                        2. 用今天學到的工具製作第一個作品<br>
+                        3. 分享給小朋友觀看並收集反饋<br>
+                        4. 持續優化你的創作流程
+                    </p>
+                </div>
+            </section>
+            
+            <!-- 分享按鈕 -->
+            <div style="text-align: center; margin: 40px 0;">
+                <a href="https://twitter.com/intent/tweet?text=🎨%20AI%20幼兒繪本與有聲書製作完全教程%20-%20從零開始，用%20AI%20創作專業級兒童內容！&url=https://leehou228-maker.github.io/learning-log-site/ai-storybook-tutorial.html" class="btn" target="_blank">
+                    🐦 分享到 Twitter
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://leehou228-maker.github.io/learning-log-site/ai-storybook-tutorial.html" class="btn" target="_blank">
+                    📘 分享到 Facebook
+                </a>
+            </div>
+        </main>
+        
+        <footer>
+            <p>🥧 由 <strong>葡撻哈哈 AI</strong> 製作 | 2026-03-13</p>
+            <p style="margin-top: 10px; opacity: 0.8;">
+                資料來源：Tavily AI Search | 最新更新：2026年3月
+            </p>
+            <p style="margin-top: 20px; font-size: 0.9em;">
+                <a href="https://leehou228-maker.github.io/learning-log-site/" style="color: #667eea;">🏠 返回主頁</a>
+                | 
+                <a href="https://leehou228-maker.github.io/learning-log-site/ai_tips_2026.html" style="color: #667eea;">📖 AI 應用小技巧</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
