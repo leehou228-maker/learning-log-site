@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐰 小兔子的森林冒險 | 互動有聲書</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .book-container {
+            background: white;
+            width: 100%;
+            max-width: 900px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .page-container {
+            padding: 40px;
+            min-height: 500px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .page-text {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .page-number {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102,126,234,0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 18px 40px;
+            font-size: 1.2em;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(240,147,251,0.3);
+        }
+
+        .info-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+
+        .footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .page-text {
+                font-size: 1.1em;
+            }
+
+            .page-image {
+                height: 300px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <div class="header">
+            <h1>🐰 小兔子的森林冒險</h1>
+            <p>幼兒互動有聲書 | 適合 3-6 歲兒童</p>
+        </div>
+
+        <div class="page-container">
+            <!-- Page 1 -->
+            <div class="page active" data-page="1">
+                <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&h=600&fit=crop"
+                     alt="可愛的小兔子" class="page-image">
+                <div class="page-text">
+                    從前從前，有一隻<strong>可愛的小兔子</strong>，佢叫白白。<br>
+                    白白住喺一個美麗嘅森林入面，佢有長長嘅耳朵同埋蓬鬆嘅尾巴。
+                </div>
+                <div class="page-number">第 1 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 2 -->
+            <div class="page" data-page="2">
+                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop"
+                     alt="美麗的森林" class="page-image">
+                <div class="page-text">
+                    森林入面有好多<strong>高高大樹</strong>同埋五顏六色嘅花朵。<br>
+                    每一日，白白都會喺森林入面蹦蹦跳跳咁玩耍。
+                </div>
+                <div class="page-number">第 2 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 3 -->
+            <div class="page" data-page="3">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&h=600&fit=crop"
+                     alt="小鳥朋友" class="page-image">
+                <div class="page-text">
+                    今日，白白遇到咗佢嘅好朋友——<strong>小鳥吱吱</strong>。<br>
+                    「早晨呀，白白！」吱吱開心咁叫。
+                </div>
+                <div class="page-number">第 3 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 4 -->
+            <div class="page" data-page="4">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop"
+                     alt="小松鼠" class="page-image">
+                <div class="page-text">
+                    跟住，佢哋又遇到咗<strong>小松鼠毛毛</strong>。<br>
+                    毛毛手入面攞住好多堅果，佢話：「你哊好！一齊去探險啦！」
+                </div>
+                <div class="page-number">第 4 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 5 -->
+            <div class="page" data-page="5">
+                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&h=600&fit=crop"
+                     alt="森林小路" class="page-image">
+                <div class="page-text">
+                    三個好朋友一齊行入森林深處。<br>
+                    佢哋見到好多<strong>美麗嘅蝴蝶</strong>喺花叢入面飛舞。
+                </div>
+                <div class="page-number">第 5 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 6 -->
+            <div class="page" data-page="6">
+                <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=800&h=600&fit=crop"
+                     alt="小溪" class="page-image">
+                <div class="page-text">
+                    佢哋嚟到一條<strong>清澈嘅小溪</strong>旁邊。<br>
+                    溪水嘩啦嘩啦咁流，發出好聽嘅聲音。
+                </div>
+                <div class="page-number">第 6 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 7 -->
+            <div class="page" data-page="7">
+                <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=800&h=600&fit=crop"
+                     alt="採野果" class="page-image">
+                <div class="page-text">
+                    白白發現咗好多<strong>紅色嘅野果</strong>！<br>
+                    「哇！好靚呀！」白白開心咁叫。
+                </div>
+                <div class="page-number">第 7 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 8 -->
+            <div class="page" data-page="8">
+                <img src="https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=800&h=600&fit=crop"
+                     alt="分享野果" class="page-image">
+                <div class="page-text">
+                    白白唔係自己一個食晒所有野果。<br>
+                    佢話：「<strong>我哋一齊分享啦！</strong>」<br>
+                    吱吱同毛毛都好開心！
+                </div>
+                <div class="page-number">第 8 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 9 -->
+            <div class="page" data-page="9">
+                <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop"
+                     alt="夕陽下的森林" class="page-image">
+                <div class="page-text">
+                    太陽開始落山，<strong>夕陽</strong>將天空染成橙色。<br>
+                    三個好朋友要返屋企喇。
+                </div>
+                <div class="page-number">第 9 頁 / 共 10 頁</div>
+            </div>
+
+            <!-- Page 10 -->
+            <div class="page" data-page="10">
+                <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800&h=600&fit=crop"
+                     alt="道別" class="page-image">
+                <div class="page-text">
+                    白白話：「<strong>今日真係好開心呀！多謝你哋陪我玩！</strong>」<br><br>
+                    吱吱同毛毛都話：「我哋永遠都係好朋友！」<br><br>
+                    <strong style="color: #667eea; font-size: 1.2em;">～ 完 ～</strong>
+                </div>
+                <div class="page-number">第 10 頁 / 共 10 頁</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="audio-controls">
+                <button class="btn btn-play" onclick="toggleSpeech()">🔊 播放配音</button>
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <button class="btn btn-secondary" id="prevBtn" onclick="prevPage()" disabled>⬅️ 上一頁</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextPage()">下一頁 ➡️</button>
+            </div>
+        </div>
+
+        <div style="padding: 20px 40px; background: #f8f9fa;">
+            <div class="info-box">
+                <strong>💡 使用提示：</strong>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>點擊「🔊 播放配音」聽故事（會自動朗讀當前頁）</li>
+                    <li>點擊「下一頁」繼續故事</li>
+                    <li>適合家長陪同 3-6 歲兒童觀看</li>
+                    <li>教育意義：學習友情與分享</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🥧 由 <strong>葡撻哈哈 AI</strong> 製作 | 2026-03-13</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                📚 更多教程：<a href="https://leehou228-maker.github.io/learning-log-site/ai_storybook_tutorial.html">AI 幼兒繪本製作完全指南</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 10;
+        let isSpeaking = false;
+        let speechSynth = window.speechSynthesis;
+        let currentUtterance = null;
+
+        // Page texts for speech
+        const pageTexts = {
+            1: "從前從前，有一隻可愛的小兔子，佢叫白白。白白住喺一個美麗嘅森林入面，佢有長長嘅耳朵同埋蓬鬆嘅尾巴。",
+            2: "森林入面有好多高高大樹同埋五顏六色嘅花朵。每一日，白白都會喺森林入面蹦蹦跳跳咁玩耍。",
+            3: "今日，白白遇到咗佢嘅好朋友——小鳥吱吱。「早晨呀，白白！」吱吱開心咁叫。",
+            4: "跟住，佢哋又遇到咗小松鼠毛毛。毛毛手入面攞住好多堅果，佢話：「你哋好！一齊去探險啦！」",
+            5: "三個好朋友一齊行入森林深處。佢哋見到好多美麗嘅蝴蝶喺花叢入面飛舞。",
+            6: "佢哋嚟到一條清澈嘅小溪旁邊。溪水嘩啦嘩啦咁流，發出好聽嘅聲音。",
+            7: "白白發現咗好多紅色嘅野果！「哇！好靚呀！」白白開心咁叫。",
+            8: "白白唔係自己一個食晒所有野果。佢話：「我哋一齊分享啦！」吱吱同毛毛都好開心！",
+            9: "太陽開始落山，夕陽將天空染成橙色。三個好朋友要返屋企喇。",
+            10: "白白話：「今日真係好開心呀！多謝你哋陪我玩！」吱吱同毛毛都話：「我哋永遠都係好朋友！」完。"
+        };
+
+        function showPage(pageNum) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show current page
+            document.querySelector(`[data-page="${pageNum}"]`).classList.add('active');
+
+            // Update buttons
+            document.getElementById('prevBtn').disabled = (pageNum === 1);
+            document.getElementById('nextBtn').disabled = (pageNum === totalPages);
+
+            if (pageNum === totalPages) {
+                document.getElementById('nextBtn').textContent = '✅ 已完成';
+            } else {
+                document.getElementById('nextBtn').textContent = '下一頁 ➡️';
+            }
+
+            // Stop current speech when page changes
+            if (isSpeaking) {
+                stopSpeech();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+
+        function toggleSpeech() {
+            if (isSpeaking) {
+                stopSpeech();
+            } else {
+                startSpeech();
+            }
+        }
+
+        function startSpeech() {
+            if (!speechSynth) {
+                alert('抱歉，您的瀏覽器不支援語音合成功能。請使用 Chrome、Safari 或 Edge 瀏覽器。');
+                return;
+            }
+
+            const text = pageTexts[currentPage];
+            currentUtterance = new SpeechSynthesisUtterance(text);
+
+            // Set Cantonese voice if available
+            const voices = speechSynth.getVoices();
+            const chineseVoice = voices.find(voice =>
+                voice.lang.includes('zh') || voice.lang.includes('cmn')
+            );
+
+            if (chineseVoice) {
+                currentUtterance.voice = chineseVoice;
+            }
+
+            currentUtterance.rate = 0.9; // Slightly slower for children
+            currentUtterance.pitch = 1.1; // Slightly higher pitch
+            currentUtterance.volume = 1;
+
+            currentUtterance.onstart = function() {
+                isSpeaking = true;
+                document.querySelector('.btn-play').textContent = '⏸️ 暫停配音';
+            };
+
+            currentUtterance.onend = function() {
+                isSpeaking = false;
+                document.querySelector('.btn-play').textContent = '🔊 播放配音';
+            };
+
+            currentUtterance.onerror = function() {
+                isSpeaking = false;
+                document.querySelector('.btn-play').textContent = '🔊 播放配音';
+            };
+
+            speechSynth.speak(currentUtterance);
+        }
+
+        function stopSpeech() {
+            if (speechSynth) {
+                speechSynth.cancel();
+            }
+            isSpeaking = false;
+            document.querySelector('.btn-play').textContent = '🔊 播放配音';
+        }
+
+        // Load voices when they become available
+        if (speechSynth) {
+            speechSynth.onvoiceschanged = function() {
+                // Voices loaded
+            };
+        }
+
+        // Initialize
+        showPage(1);
+    </script>
+</body>
+</html>
