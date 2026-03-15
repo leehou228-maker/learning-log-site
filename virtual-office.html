@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🟡 葡撻哈哈的虛擬辦公室</title>
+    <script src="https://unpkg.com/framer-motion@10/dist/framer-motion.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #ffd54f;
+            --accent: #4fc3f7;
+            --success: #00c853;
+            --danger: #ff006e;
+            --purple: #9d4edd;
+            --bg-dark: #1a1a2e;
+            --bg-card: rgba(255,255,255,0.08);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(255, 213, 79, 0.5);
+        }
+        
+        .header .subtitle {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* ====== OFFICE SCENE ====== */
+        .office-scene {
+            background: linear-gradient(180deg, 
+                #1e3a5f 0%, 
+                #16213e 40%,
+                #8d6e63 70%, 
+                #6d4c41 100%);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            min-height: 350px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+        
+        /* Window with animated sun */
+        .window {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            width: 100px;
+            height: 80px;
+            background: linear-gradient(180deg, #4fc3f7 0%, #81d4fa 100%);
+            border: 6px solid #8d6e63;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .sun {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 25px;
+            animation: sun-pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes sun-pulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.15); filter: brightness(1.2); }
+        }
+        
+        .clouds {
+            position: absolute;
+            font-size: 20px;
+            animation: cloud-move 20s linear infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes cloud-move {
+            0% { transform: translateX(-30px); }
+            100% { transform: translateX(130px); }
+        }
+        
+        /* Desk Setup */
+        .desk-area {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 100px;
+        }
+        
+        .desk-surface {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: linear-gradient(180deg, #a1887f 0%, #8d6e63 100%);
+            border-radius: 3px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        .monitor {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 80px;
+            background: #1a1a2e;
+            border: 5px solid #424242;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .monitor-screen {
+            width: 90%;
+            height: 85%;
+            background: linear-gradient(135deg, #0d2137, #1e3a5f);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            animation: screen-glow 4s ease-in-out infinite;
+        }
+        
+        @keyframes screen-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(79, 195, 247, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(79, 195, 247, 0.6); }
+        }
+        
+        .keyboard {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 20px;
+            background: #424242;
+            border-radius: 3px;
+        }
+        
+        .coffee-cup {
+            position: absolute;
+            bottom: 25px;
+            right: 10%;
+            font-size: 30px;
+            animation: steam 2s ease-in-out infinite;
+        }
+        
+        @keyframes steam {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        
+        /* ====== YELLOW CAT (葡撻哈哈) ====== */
+        .yellow-cat {
+            position: absolute;
+            bottom: 120px;
+            left: 30%;
+            animation: cat-idle 2.5s ease-in-out infinite;
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .yellow-cat:hover {
+            transform: scale(1.1);
+        }
+        
+        @keyframes cat-idle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .cat-body {
+            width: 70px;
+            height: 50px;
+            background: linear-gradient(180deg, #ffeb3b 0%, #ffd54f 50%, #ffca28 100%);
+            border-radius: 35px 35px 25px 25px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(255, 213, 79, 0.3);
+        }
+        
+        .cat-head {
+            width: 60px;
+            height: 48px;
+            background: linear-gradient(180deg, #ffeb3b 0%, #ffd54f 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: -35px;
+            left: 5px;
+            box-shadow: 0 -5px 20px rgba(255, 213, 79, 0.4);
+        }
+        
+        .cat-ear {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 18px solid #ffd54f;
+            position: absolute;
+            top: -12px;
+        }
+        
+        .cat-ear.left { left: 5px; transform: rotate(-20deg); }
+        .cat-ear.right { right: 5px; transform: rotate(20deg); }
+        
+        .cat-ear-inner {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 8px solid #ffab91;
+            position: absolute;
+            top: -6px;
+        }
+        
+        .cat-ear-inner.left { left: 10px; transform: rotate(-20deg); }
+        .cat-ear-inner.right { right: 10px; transform: rotate(20deg); }
+        
+        .cat-eye {
+            width: 12px;
+            height: 14px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 12px;
+        }
+        
+        .cat-eye.left { left: 10px; }
+        .cat-eye.right { right: 10px; }
+        
+        .cat-pupil {
+            width: 7px;
+            height: 9px;
+            background: #1a1a2e;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            animation: look-around 8s ease-in-out infinite;
+        }
+        
+        @keyframes look-around {
+            0%, 40%, 100% { transform: translateX(0); }
+            45%, 55% { transform: translateX(2px); }
+            60%, 90% { transform: translateX(-2px); }
+        }
+        
+        .cat-eye-shine {
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            right: 1px;
+        }
+        
+        .cat-nose {
+            width: 8px;
+            height: 6px;
+            background: #ffab91;
+            border-radius: 50%;
+            position: absolute;
+            top: 26px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .cat-mouth {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 8px;
+            border-bottom: 2px solid #8d6e63;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .cat-whisker {
+            position: absolute;
+            width: 20px;
+            height: 1.5px;
+            background: #8d6e63;
+            top: 28px;
+            opacity: 0.7;
+        }
+        
+        .cat-whisker.l1 { left: -15px; transform: rotate(-8deg); }
+        .cat-whisker.l2 { left: -17px; top: 32px; }
+        .cat-whisker.l3 { left: -15px; top: 36px; transform: rotate(8deg); }
+        .cat-whisker.r1 { right: -15px; transform: rotate(8deg); }
+        .cat-whisker.r2 { right: -17px; top: 32px; }
+        .cat-whisker.r3 { right: -15px; top: 36px; transform: rotate(-8deg); }
+        
+        .cat-tail {
+            width: 50px;
+            height: 12px;
+            background: linear-gradient(90deg, #ffd54f, #ffca28);
+            border-radius: 6px;
+            position: absolute;
+            right: -40px;
+            bottom: 15px;
+            transform-origin: left center;
+            animation: tail-wag 0.8s ease-in-out infinite;
+        }
+        
+        @keyframes tail-wag {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+        }
+        
+        .cat-paw {
+            width: 16px;
+            height: 12px;
+            background: #ffeb3b;
+            border-radius: 8px;
+            position: absolute;
+            bottom: -3px;
+        }
+        
+        .cat-paw.left { left: 8px; }
+        .cat-paw.right { right: 8px; }
+        
+        /* Working indicator */
+        .working-indicator {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            animation: work-bounce 0.6s ease-in-out infinite;
+            display: none;
+        }
+        
+        .working-indicator.active {
+            display: block;
+        }
+        
+        @keyframes work-bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+        
+        /* Speech Bubble */
+        .speech-bubble {
+            position: absolute;
+            top: 30px;
+            left: 55%;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 0.95em;
+            max-width: 220px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            animation: bubble-float 3s ease-in-out infinite;
+            z-index: 20;
+        }
+        
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 20px;
+            border: 8px solid transparent;
+            border-top-color: rgba(255,255,255,0.95);
+            border-bottom: 0;
+        }
+        
+        @keyframes bubble-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        
+        /* Status Badge */
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 200, 83, 0.2);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-dot {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.5); }
+            50% { box-shadow: 0 0 0 6px rgba(0, 200, 83, 0); }
+        }
+        
+        /* ====== STATS GRID ====== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            opacity: 0.15;
+        }
+        
+        .stat-card.cyan::before { background: var(--accent); }
+        .stat-card.purple::before { background: var(--purple); }
+        .stat-card.pink::before { background: var(--danger); }
+        .stat-card.green::before { background: var(--success); }
+        
+        .stat-icon {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card.cyan .stat-value { color: var(--accent); }
+        .stat-card.purple .stat-value { color: var(--purple); }
+        .stat-card.pink .stat-value { color: var(--danger); }
+        .stat-card.green .stat-value { color: var(--success); }
+        
+        .stat-label {
+            color: #888;
+            font-size: 0.85em;
+        }
+        
+        .stat-sub {
+            color: #555;
+            font-size: 0.75em;
+            margin-top: 5px;
+        }
+        
+        /* ====== ACTIVITY & INFO PANELS ====== */
+        .panels-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .panels-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .panel {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .panel-title {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .panel-title.cyan { color: var(--accent); }
+        .panel-title.yellow { color: var(--primary); }
+        
+        /* Skills List */
+        .skills-list {
+            list-style: none;
+        }
+        
+        .skills-list li {
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+        
+        .skills-list li:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .skills-list li.active {
+            background: rgba(79, 195, 247, 0.15);
+            border-left: 3px solid var(--accent);
+        }
+        
+        /* Activity Log */
+        .activity-log {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .log-item {
+            padding: 8px 12px;
+            border-left: 2px solid var(--accent);
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 0 6px 6px 0;
+            font-size: 0.85em;
+        }
+        
+        .log-time {
+            color: #555;
+            font-size: 0.75em;
+            margin-left: 8px;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin-top: 10px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            margin-bottom: 6px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+        
+        .progress-fill.gradient {
+            background: linear-gradient(90deg, var(--accent), var(--success));
+        }
+        
+        /* Time Saved Visualization */
+        .time-saved {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .time-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .time-bar {
+            flex: 1;
+        }
+        
+        .time-bar-label {
+            font-size: 0.75em;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .time-bar-value {
+            font-size: 0.85em;
+            margin-top: 4px;
+        }
+        
+        .time-vs {
+            color: #444;
+            font-size: 0.8em;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #555;
+            font-size: 0.85em;
+        }
+        
+        .footer .highlight {
+            color: var(--primary);
+        }
+        
+        .footer .dev {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🟡 葡撻哈哈的虛擬辦公室</h1>
+        <div class="subtitle">歡迎燕豪主人視察 💼 | 專屬 AI 助手實時監控</div>
+    </div>
+    
+    <div class="main-container">
+        <!-- Office Scene -->
+        <div class="office-scene">
+            <!-- Status Badge -->
+            <div class="status-badge">
+                <div class="status-dot"></div>
+                <span>Online - 工作中</span>
+            </div>
+            
+            <!-- Window -->
+            <div class="window">
+                <div class="sun">☀️</div>
+                <div class="clouds" style="top: 30px; left: 10px;">☁️</div>
+            </div>
+            
+            <!-- Speech Bubble -->
+            <div class="speech-bubble" id="speech">
+                喵～主人好！我係葡撻哈哈，正在為您工作中！🥧
+            </div>
+            
+            <!-- Yellow Cat -->
+            <div class="yellow-cat" id="cat">
+                <div class="working-indicator" id="working">⚡</div>
+                
+                <div class="cat-body">
+                    <div class="cat-paw left"></div>
+                    <div class="cat-paw right"></div>
+                    <div class="cat-tail"></div>
+                    
+                    <div class="cat-head">
+                        <div class="cat-ear left"></div>
+                        <div class="cat-ear right"></div>
+                        <div class="cat-ear-inner left"></div>
+                        <div class="cat-ear-inner right"></div>
+                        
+                        <div class="cat-eye left">
+                            <div class="cat-pupil"></div>
+                            <div class="cat-eye-shine"></div>
+                        </div>
+                        <div class="cat-eye right">
+                            <div class="cat-pupil"></div>
+                            <div class="cat-eye-shine"></div>
+                        </div>
+                        
+                        <div class="cat-nose"></div>
+                        <div class="cat-mouth"></div>
+                        
+                        <div class="cat-whisker l1"></div>
+                        <div class="cat-whisker l2"></div>
+                        <div class="cat-whisker l3"></div>
+                        <div class="cat-whisker r1"></div>
+                        <div class="cat-whisker r2"></div>
+                        <div class="cat-whisker r3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desk Area -->
+            <div class="desk-area">
+                <div class="monitor">
+                    <div class="monitor-screen" id="screen">💻</div>
+                </div>
+                <div class="keyboard"></div>
+                <div class="desk-surface"></div>
+            </div>
+            
+            <div class="coffee-cup">☕</div>
+        </div>
+        
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card cyan">
+                <div class="stat-icon">💬</div>
+                <div class="stat-value" id="stat-messages">0</div>
+                <div class="stat-label">今日訊息</div>
+                <div class="stat-sub" id="stat-tasks">0 個任務完成</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-icon">🔢</div>
+                <div class="stat-value" id="stat-tokens">0</div>
+                <div class="stat-label">Token 使用</div>
+                <div class="stat-sub">輸入: 0 / 輸出: 0</div>
+            </div>
+            <div class="stat-card pink">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value" id="stat-cost">$0.00</div>
+                <div class="stat-label">API 成本 (USD)</div>
+                <div class="stat-sub">今日: $0.00</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-icon">📈</div>
+                <div class="stat-value" id="stat-savings">$0</div>
+                <div class="stat-label">節省金額 (USD)</div>
+                <div class="stat-sub">ROI 計算中...</div>
+            </div>
+        </div>
+        
+        <!-- Panels -->
+        <div class="panels-grid">
+            <!-- Skills Panel -->
+            <div class="panel">
+                <div class="panel-title cyan">
+                    <span>🛠️</span> 已安裝技能
+                </div>
+                <ul class="skills-list">
+                    <li class="active">🔍 tavily - AI 網絡搜索</li>
+                    <li>🧠 self-improving-agent - 自我改進</li>
+                    <li>🔎 find-skills - 技能發現</li>
+                    <li>📝 summarize - 內容總結</li>
+                    <li>📧 gog - Google Workspace</li>
+                    <li>🌐 agent-browser - 瀏覽器自動化</li>
+                    <li>🤖 codex - OpenAI 編程助手</li>
+                </ul>
+            </div>
+            
+            <!-- Activity Panel -->
+            <div class="panel">
+                <div class="panel-title yellow">
+                    <span>📋</span> 最近活動
+                </div>
+                <div class="activity-log">
+                    <div class="log-item">
+                        ✅ 建立虛擬辦公室 Dashboard
+                        <span class="log-time">14:05</span>
+                    </div>
+                    <div class="log-item">
+                        ✅ 安裝 @openai/codex CLI v0.114.0
+                        <span class="log-time">13:52</span>
+                    </div>
+                    <div class="log-item">
+                        ✅ 安裝 gws-workflow 技能
+                        <span class="log-time">13:25</span>
+                    </div>
+                    <div class="log-item">
+                        🔍 搜索 ClawHub 實用技能
+                        <span class="log-time">13:22</span>
+                    </div>
+                    <div class="log-item">
+                        📊 分析美伊衝突預測
+                        <span class="log-time">12:41</span>
+                    </div>
+                    <div class="log-item">
+                        🧬 研究 Capability Evolver
+                        <span class="log-time">12:30</span>
+                    </div>
+                </div>
+                
+                <!-- Token Progress -->
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>🔋 Token 配額</span>
+                        <span id="token-percent">65%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill gradient" id="token-bar" style="width: 65%;"></div>
+                    </div>
+                </div>
+                
+                <!-- Time Saved -->
+                <div class="time-saved">
+                    <div style="font-size: 0.85em; color: #888;">⏰ 時間節省對比</div>
+                    <div class="time-bar-container">
+                        <div class="time-bar">
+                            <div class="time-bar-label">AI 處理時間</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 15%; background: var(--accent);"></div>
+                            </div>
+                            <div class="time-bar-value" style="color: var(--accent);">2h 15m</div>
+                        </div>
+                        <div class="time-vs">vs</div>
+                        <div class="time-bar">
+                            <div class="time-bar-label">人工等效時間</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%; background: var(--success);"></div>
+                            </div>
+                            <div class="time-bar-value" style="color: var(--success);">18h 30m</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 10px; color: var(--success); font-weight: bold;">
+                        🚀 節省 16+ 小時！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <span class="highlight">🥧 葡撻哈哈</span> — 專屬於 <span class="highlight">燕豪</span> 的黃色小貓助手
+        <br>
+        <span class="dev">Mac mini</span> @ user的Mac mini | Model: zai/glm-5 | 只為你工作 💪
+    </div>
+    
+    <script>
+        // ====== ANIMATED STATS (Learned from openclaw-office) ======
+        const targetStats = {
+            messages: 47,
+            tokens: 8247,
+            cost: 2.35,
+            savings: 127,
+            tasks: 12
+        };
+        
+        function animateValue(elementId, target, duration = 1500, prefix = '', suffix = '') {
+            const element = document.getElementById(elementId);
+            const startTime = performance.now();
+            const startValue = 0;
+            
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const currentValue = startValue + (target - startValue) * easeOut;
+                
+                if (prefix === '$') {
+                    element.textContent = prefix + currentValue.toFixed(2) + suffix;
+                } else {
+                    element.textContent = prefix + Math.floor(currentValue).toLocaleString() + suffix;
+                }
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            requestAnimationFrame(update);
+        }
+        
+        // Start animations
+        setTimeout(() => {
+            animateValue('stat-messages', targetStats.messages);
+            animateValue('stat-tokens', targetStats.tokens);
+            animateValue('stat-cost', targetStats.cost, 1500, '$', '');
+            animateValue('stat-savings', targetStats.savings, 1500, '$', '');
+            document.getElementById('stat-tasks').textContent = targetStats.tasks + ' 個任務完成';
+        }, 500);
+        
+        // ====== SPEECH BUBBLE ROTATION (Learned from AgentSprite) ======
+        const speeches = [
+            "喵～主人好！我係葡撻哈哈，正在為您工作中！🥧",
+            "喵喵～有咩可以幫到您？",
+            "正在思考中... 🤔",
+            "今日天氣唔錯喵！☀️",
+            "隨時待命！💪",
+            "葡撻哈哈準備好啦！🥧",
+            "寫緊代碼喵～ ⌨️",
+            "幫主人搵資料中... 🔍",
+            "喵～今日效率不錯！📈"
+        ];
+        
+        let speechIndex = 0;
+        setInterval(() => {
+            speechIndex = (speechIndex + 1) % speeches.length;
+            const bubble = document.getElementById('speech');
+            bubble.style.opacity = 0;
+            setTimeout(() => {
+                bubble.textContent = speeches[speechIndex];
+                bubble.style.opacity = 1;
+            }, 300);
+        }, 5000);
+        
+        // ====== SCREEN EMOJI ROTATION ======
+        const screenEmojis = ['💻', '📝', '🔍', '📊', '🛠️', '🥧', '⚡'];
+        let emojiIndex = 0;
+        setInterval(() => {
+            emojiIndex = (emojiIndex + 1) % screenEmojis.length;
+            document.getElementById('screen').textContent = screenEmojis[emojiIndex];
+        }, 4000);
+        
+        // ====== WORKING INDICATOR (Random) ======
+        setInterval(() => {
+            const working = document.getElementById('working');
+            if (Math.random() > 0.6) {
+                working.classList.add('active');
+                setTimeout(() => {
+                    working.classList.remove('active');
+                }, 2000);
+            }
+        }, 5000);
+        
+        // ====== CAT CLICK INTERACTION ======
+        document.getElementById('cat').addEventListener('click', () => {
+            const bubble = document.getElementById('speech');
+            const meows = ['喵！🐱', '喵喵～🥧', '喵... 主人叫我有咩事？', '喵喵喵！❤️'];
+            bubble.textContent = meows[Math.floor(Math.random() * meows.length)];
+        });
+        
+        // ====== UPDATE TIME ======
+        function updateTime() {
+            const now = new Date();
+            // You could add a live clock display here
+        }
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
