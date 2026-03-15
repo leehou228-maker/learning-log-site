@@ -3,865 +3,1690 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🟡 葡撻哈哈的虛擬辦公室</title>
-    <script src="https://unpkg.com/framer-motion@10/dist/framer-motion.js"></script>
+    <title>🟡 葡撻哈哈 | AI 虛擬辦公室</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #5a5a5a;
+            --accent-yellow: #ffd54f;
+            --accent-yellow-light: #ffeb3b;
+            --accent-yellow-dark: #c9a227;
+            --accent-cyan: #4fc3f7;
+            --accent-purple: #b388ff;
+            --accent-pink: #ff80ab;
+            --accent-green: #69f0ae;
+            --gradient-gold: linear-gradient(135deg, #ffd54f 0%, #ffeb3b 50%, #fff176 100%);
+            --shadow-glow: 0 0 60px rgba(255, 213, 79, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        :root {
-            --primary: #ffd54f;
-            --accent: #4fc3f7;
-            --success: #00c853;
-            --danger: #ff006e;
-            --purple: #9d4edd;
-            --bg-dark: #1a1a2e;
-            --bg-card: rgba(255,255,255,0.08);
-        }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 50%, #16213e 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
             min-height: 100vh;
-            color: #fff;
+            color: var(--text-primary);
             overflow-x: hidden;
+            line-height: 1.6;
         }
-        
+
+        /* Animated Background */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 213, 79, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(79, 195, 247, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header */
         .header {
-            text-align: center;
-            padding: 20px;
-            background: rgba(255,255,255,0.03);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .header h1 {
-            font-size: 1.8em;
-            color: var(--primary);
-            text-shadow: 0 0 20px rgba(255, 213, 79, 0.5);
-        }
-        
-        .header .subtitle {
-            color: #888;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-        
-        .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* ====== OFFICE SCENE ====== */
-        .office-scene {
-            background: linear-gradient(180deg, 
-                #1e3a5f 0%, 
-                #16213e 40%,
-                #8d6e63 70%, 
-                #6d4c41 100%);
-            border-radius: 20px;
-            padding: 30px;
             position: relative;
-            min-height: 350px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            padding: 40px 40px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-subtle);
+            background: linear-gradient(180deg, rgba(255,213,79,0.02) 0%, transparent 100%);
+            z-index: 10;
         }
-        
-        /* Window with animated sun */
-        .window {
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-gold);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: var(--shadow-glow);
+            animation: logo-float 4s ease-in-out infinite;
+        }
+
+        @keyframes logo-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(3deg); }
+        }
+
+        .logo-text h1 {
+            font-size: 1.5em;
+            font-weight: 600;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background: rgba(105, 240, 174, 0.1);
+            border: 1px solid rgba(105, 240, 174, 0.2);
+            border-radius: 100px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse-green 2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(105, 240, 174, 0.5);
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .status-text {
+            font-size: 0.85em;
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        /* Main Container */
+        .main-container {
+            position: relative;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 30px 40px;
+            z-index: 10;
+        }
+
+        /* Office Scene - Premium Design */
+        .office-scene {
+            position: relative;
+            height: 420px;
+            background: 
+                linear-gradient(180deg, 
+                    #1a1a2e 0%, 
+                    #16213e 30%,
+                    #2d2d44 60%,
+                    #3d3d5c 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* Ambient Lighting */
+        .ambient-glow {
             position: absolute;
-            top: 15px;
-            right: 25px;
-            width: 100px;
-            height: 80px;
-            background: linear-gradient(180deg, #4fc3f7 0%, #81d4fa 100%);
-            border: 6px solid #8d6e63;
-            border-radius: 5px;
-            overflow: hidden;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            pointer-events: none;
         }
-        
+
+        .ambient-glow.yellow {
+            top: -50px;
+            left: 20%;
+            background: var(--accent-yellow);
+        }
+
+        .ambient-glow.cyan {
+            bottom: -50px;
+            right: 10%;
+            background: var(--accent-cyan);
+        }
+
+        /* Window */
+        .window-container {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+
+        .window {
+            width: 140px;
+            height: 100px;
+            background: linear-gradient(180deg, #1e3a5f 0%, #2d5a87 50%, #4a90b8 100%);
+            border: 8px solid #5d4e37;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                inset 0 0 30px rgba(79, 195, 247, 0.2),
+                0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .window::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+
+        .window-cross-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: #5d4e37;
+            transform: translateY(-50%);
+        }
+
+        .window-cross-v {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            background: #5d4e37;
+            transform: translateX(-50%);
+        }
+
         .sun {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 25px;
-            animation: sun-pulse 3s ease-in-out infinite;
+            top: 12px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle, #fff9c4 0%, #ffd54f 50%, #ff9800 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 30px rgba(255, 213, 79, 0.6),
+                0 0 60px rgba(255, 213, 79, 0.3);
+            animation: sun-glow 4s ease-in-out infinite;
         }
-        
-        @keyframes sun-pulse {
-            0%, 100% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.15); filter: brightness(1.2); }
+
+        @keyframes sun-glow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(255, 213, 79, 0.6); }
+            50% { transform: scale(1.1); box-shadow: 0 0 50px rgba(255, 213, 79, 0.8); }
         }
-        
-        .clouds {
+
+        .cloud {
             position: absolute;
-            font-size: 20px;
-            animation: cloud-move 20s linear infinite;
-            opacity: 0.7;
+            font-size: 24px;
+            opacity: 0.6;
+            animation: cloud-drift 25s linear infinite;
         }
-        
-        @keyframes cloud-move {
-            0% { transform: translateX(-30px); }
-            100% { transform: translateX(130px); }
+
+        .cloud:nth-child(1) { top: 50px; animation-delay: 0s; }
+        .cloud:nth-child(2) { top: 30px; animation-delay: -8s; font-size: 18px; }
+
+        @keyframes cloud-drift {
+            0% { transform: translateX(-50px); }
+            100% { transform: translateX(190px); }
         }
-        
-        /* Desk Setup */
+
+        /* Desk Area */
         .desk-area {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70%;
-            height: 100px;
-        }
-        
-        .desk-surface {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 15px;
-            background: linear-gradient(180deg, #a1887f 0%, #8d6e63 100%);
-            border-radius: 3px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            height: 160px;
         }
-        
-        .monitor {
+
+        .desk {
             position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 80px;
-            background: #1a1a2e;
-            border: 5px solid #424242;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 75%;
+            height: 70px;
         }
-        
-        .monitor-screen {
-            width: 90%;
-            height: 85%;
-            background: linear-gradient(135deg, #0d2137, #1e3a5f);
+
+        .desk-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(180deg, #8b7355 0%, #6d5a45 100%);
             border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            animation: screen-glow 4s ease-in-out infinite;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
-        
-        @keyframes screen-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(79, 195, 247, 0.3); }
-            50% { box-shadow: 0 0 25px rgba(79, 195, 247, 0.6); }
-        }
-        
-        .keyboard {
-            position: absolute;
-            bottom: 18px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 20px;
-            background: #424242;
-            border-radius: 3px;
-        }
-        
-        .coffee-cup {
-            position: absolute;
-            bottom: 25px;
-            right: 10%;
-            font-size: 30px;
-            animation: steam 2s ease-in-out infinite;
-        }
-        
-        @keyframes steam {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-        
-        /* ====== YELLOW CAT (葡撻哈哈) ====== */
-        .yellow-cat {
-            position: absolute;
-            bottom: 120px;
-            left: 30%;
-            animation: cat-idle 2.5s ease-in-out infinite;
-            z-index: 10;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .yellow-cat:hover {
-            transform: scale(1.1);
-        }
-        
-        @keyframes cat-idle {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .cat-body {
-            width: 70px;
-            height: 50px;
-            background: linear-gradient(180deg, #ffeb3b 0%, #ffd54f 50%, #ffca28 100%);
-            border-radius: 35px 35px 25px 25px;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(255, 213, 79, 0.3);
-        }
-        
-        .cat-head {
-            width: 60px;
-            height: 48px;
-            background: linear-gradient(180deg, #ffeb3b 0%, #ffd54f 100%);
-            border-radius: 50%;
-            position: absolute;
-            top: -35px;
-            left: 5px;
-            box-shadow: 0 -5px 20px rgba(255, 213, 79, 0.4);
-        }
-        
-        .cat-ear {
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 18px solid #ffd54f;
-            position: absolute;
-            top: -12px;
-        }
-        
-        .cat-ear.left { left: 5px; transform: rotate(-20deg); }
-        .cat-ear.right { right: 5px; transform: rotate(20deg); }
-        
-        .cat-ear-inner {
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 8px solid #ffab91;
-            position: absolute;
-            top: -6px;
-        }
-        
-        .cat-ear-inner.left { left: 10px; transform: rotate(-20deg); }
-        .cat-ear-inner.right { right: 10px; transform: rotate(20deg); }
-        
-        .cat-eye {
-            width: 12px;
-            height: 14px;
-            background: #fff;
-            border-radius: 50%;
+
+        .desk-front {
             position: absolute;
             top: 12px;
-        }
-        
-        .cat-eye.left { left: 10px; }
-        .cat-eye.right { right: 10px; }
-        
-        .cat-pupil {
-            width: 7px;
-            height: 9px;
-            background: #1a1a2e;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            animation: look-around 8s ease-in-out infinite;
-        }
-        
-        @keyframes look-around {
-            0%, 40%, 100% { transform: translateX(0); }
-            45%, 55% { transform: translateX(2px); }
-            60%, 90% { transform: translateX(-2px); }
-        }
-        
-        .cat-eye-shine {
-            width: 3px;
-            height: 3px;
-            background: #fff;
-            border-radius: 50%;
-            position: absolute;
-            top: 1px;
-            right: 1px;
-        }
-        
-        .cat-nose {
-            width: 8px;
-            height: 6px;
-            background: #ffab91;
-            border-radius: 50%;
-            position: absolute;
-            top: 26px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .cat-mouth {
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 8px;
-            border-bottom: 2px solid #8d6e63;
+            left: 5%;
+            right: 5%;
+            height: 55px;
+            background: linear-gradient(180deg, #5d4e37 0%, #4a3f30 100%);
             border-radius: 0 0 8px 8px;
         }
-        
-        .cat-whisker {
+
+        .desk-drawer {
             position: absolute;
+            top: 10px;
+            width: 60px;
+            height: 20px;
+            background: linear-gradient(180deg, #4a3f30, #3d3428);
+            border-radius: 2px;
+        }
+
+        .desk-drawer:nth-child(1) { left: 20px; }
+        .desk-drawer:nth-child(2) { left: 90px; }
+        .desk-drawer:nth-child(3) { right: 90px; }
+        .desk-drawer:nth-child(4) { right: 20px; }
+
+        .desk-drawer::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 20px;
-            height: 1.5px;
-            background: #8d6e63;
-            top: 28px;
-            opacity: 0.7;
+            height: 3px;
+            background: #6d5a45;
+            border-radius: 2px;
         }
-        
-        .cat-whisker.l1 { left: -15px; transform: rotate(-8deg); }
-        .cat-whisker.l2 { left: -17px; top: 32px; }
-        .cat-whisker.l3 { left: -15px; top: 36px; transform: rotate(8deg); }
-        .cat-whisker.r1 { right: -15px; transform: rotate(8deg); }
-        .cat-whisker.r2 { right: -17px; top: 32px; }
-        .cat-whisker.r3 { right: -15px; top: 36px; transform: rotate(-8deg); }
-        
-        .cat-tail {
-            width: 50px;
-            height: 12px;
-            background: linear-gradient(90deg, #ffd54f, #ffca28);
-            border-radius: 6px;
+
+        /* Monitor */
+        .monitor {
             position: absolute;
-            right: -40px;
-            bottom: 15px;
-            transform-origin: left center;
-            animation: tail-wag 0.8s ease-in-out infinite;
-        }
-        
-        @keyframes tail-wag {
-            0%, 100% { transform: rotate(-15deg); }
-            50% { transform: rotate(15deg); }
-        }
-        
-        .cat-paw {
-            width: 16px;
-            height: 12px;
-            background: #ffeb3b;
-            border-radius: 8px;
-            position: absolute;
-            bottom: -3px;
-        }
-        
-        .cat-paw.left { left: 8px; }
-        .cat-paw.right { right: 8px; }
-        
-        /* Working indicator */
-        .working-indicator {
-            position: absolute;
-            top: -50px;
+            bottom: 90px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 20px;
-            animation: work-bounce 0.6s ease-in-out infinite;
-            display: none;
         }
-        
-        .working-indicator.active {
-            display: block;
+
+        .monitor-screen {
+            width: 160px;
+            height: 100px;
+            background: linear-gradient(135deg, #0d0d14 0%, #1a1a28 100%);
+            border: 4px solid #2a2a3a;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(79, 195, 247, 0.1);
         }
-        
-        @keyframes work-bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-8px); }
+
+        .monitor-screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
         }
-        
+
+        .monitor-content {
+            position: absolute;
+            inset: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            animation: screen-change 5s ease-in-out infinite;
+        }
+
+        @keyframes screen-change {
+            0%, 20% { content: '💻'; }
+            25%, 45% { content: '📝'; }
+            50%, 70% { content: '🔍'; }
+            75%, 95% { content: '🥧'; }
+        }
+
+        .monitor-stand {
+            width: 20px;
+            height: 15px;
+            background: linear-gradient(180deg, #3a3a4a, #2a2a3a);
+            margin: 0 auto;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .monitor-base {
+            width: 60px;
+            height: 6px;
+            background: linear-gradient(180deg, #3a3a4a, #2a2a3a);
+            margin: 0 auto;
+            border-radius: 3px;
+        }
+
+        /* Keyboard */
+        .keyboard {
+            position: absolute;
+            bottom: 92px;
+            left: 50%;
+            transform: translateX(-50%) perspective(200px) rotateX(10deg);
+            width: 100px;
+            height: 30px;
+            background: linear-gradient(180deg, #3a3a4a 0%, #2a2a3a 100%);
+            border-radius: 4px;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 2px;
+            padding: 3px;
+        }
+
+        .key {
+            background: linear-gradient(180deg, #4a4a5a, #3a3a4a);
+            border-radius: 2px;
+        }
+
+        /* Coffee Cup */
+        .coffee {
+            position: absolute;
+            bottom: 92px;
+            right: 18%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .coffee-cup {
+            width: 28px;
+            height: 24px;
+            background: linear-gradient(180deg, #f5f5f5 0%, #e0e0e0 100%);
+            border-radius: 3px 3px 6px 6px;
+            position: relative;
+        }
+
+        .coffee-cup::before {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 4px;
+            width: 10px;
+            height: 12px;
+            border: 3px solid #e0e0e0;
+            border-left: none;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .coffee-liquid {
+            position: absolute;
+            top: 4px;
+            left: 3px;
+            right: 3px;
+            height: 12px;
+            background: linear-gradient(180deg, #5d4037 0%, #3e2723 100%);
+            border-radius: 2px;
+        }
+
+        .steam {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+        }
+
+        .steam-line {
+            width: 2px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            animation: steam-rise 2s ease-in-out infinite;
+        }
+
+        .steam-line:nth-child(2) { animation-delay: 0.3s; height: 16px; }
+        .steam-line:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes steam-rise {
+            0%, 100% { transform: translateY(0) scaleY(1); opacity: 0.3; }
+            50% { transform: translateY(-5px) scaleY(1.2); opacity: 0.5; }
+        }
+
+        /* ====== YELLOW CAT (葡撻哈哈) - DETAILED VERSION ====== */
+        .cat-container {
+            position: absolute;
+            bottom: 100px;
+            left: 28%;
+            cursor: pointer;
+            z-index: 20;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .cat-container:hover {
+            transform: scale(1.08);
+        }
+
+        .cat {
+            position: relative;
+            animation: cat-breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes cat-breathe {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.02) translateY(-3px); }
+        }
+
+        /* Cat Shadow */
+        .cat-shadow {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 20px;
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+            animation: shadow-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes shadow-pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.5; }
+            50% { transform: translateX(-50%) scale(0.95); opacity: 0.4; }
+        }
+
+        /* Cat Body */
+        .cat-body {
+            width: 85px;
+            height: 55px;
+            position: relative;
+        }
+
+        .cat-body-main {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #ffeb3b 0%, #ffd54f 40%, #f9c846 100%);
+            border-radius: 42px 42px 30px 30px;
+            box-shadow: 
+                inset -10px -10px 20px rgba(255, 255, 255, 0.3),
+                inset 5px 5px 15px rgba(0, 0, 0, 0.05),
+                0 10px 30px rgba(255, 213, 79, 0.3);
+        }
+
+        .cat-body-highlight {
+            position: absolute;
+            top: 8px;
+            left: 15px;
+            width: 25px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            filter: blur(5px);
+        }
+
+        /* Cat Head */
+        .cat-head {
+            position: absolute;
+            width: 72px;
+            height: 58px;
+            top: -42px;
+            left: 6px;
+        }
+
+        .cat-head-main {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #ffeb3b 0%, #ffd54f 50%, #f9c846 100%);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: 
+                inset -8px -8px 15px rgba(255, 255, 255, 0.3),
+                inset 4px 4px 10px rgba(0, 0, 0, 0.05),
+                0 -5px 25px rgba(255, 213, 79, 0.4);
+        }
+
+        .cat-head-highlight {
+            position: absolute;
+            top: 6px;
+            left: 12px;
+            width: 20px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+
+        /* Cat Ears */
+        .cat-ear {
+            position: absolute;
+            top: -8px;
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 22px solid #ffd54f;
+            filter: drop-shadow(0 -2px 4px rgba(255, 213, 79, 0.3));
+        }
+
+        .cat-ear.left {
+            left: 2px;
+            transform: rotate(-20deg);
+        }
+
+        .cat-ear.right {
+            right: 2px;
+            transform: rotate(20deg);
+        }
+
+        .cat-ear-inner {
+            position: absolute;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 12px solid #ffab91;
+        }
+
+        .cat-ear-inner.left {
+            left: 8px;
+            transform: rotate(-20deg);
+        }
+
+        .cat-ear-inner.right {
+            right: 8px;
+            transform: rotate(20deg);
+        }
+
+        /* Cat Face */
+        .cat-face {
+            position: absolute;
+            inset: 0;
+            z-index: 5;
+        }
+
+        /* Eyes */
+        .cat-eye {
+            position: absolute;
+            top: 16px;
+            width: 18px;
+            height: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .cat-eye.left { left: 10px; }
+        .cat-eye.right { right: 10px; }
+
+        .cat-iris {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 12px;
+            height: 14px;
+            background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-radius: 50%;
+            animation: eye-look 8s ease-in-out infinite;
+        }
+
+        @keyframes eye-look {
+            0%, 20%, 100% { transform: translateX(0); }
+            25%, 35% { transform: translateX(2px); }
+            60%, 80% { transform: translateX(-2px); }
+        }
+
+        .cat-pupil {
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            width: 6px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+        }
+
+        .cat-eye-shine {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 3px #fff;
+        }
+
+        .cat-eye-shine-small {
+            position: absolute;
+            bottom: 3px;
+            left: 4px;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+        }
+
+        /* Eyelids for blinking */
+        .cat-eyelid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: linear-gradient(180deg, #ffd54f, #f9c846);
+            border-radius: 50% 50% 0 0;
+            animation: blink 4s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 90%, 100% { height: 0; }
+            95% { height: 100%; }
+        }
+
+        /* Nose */
+        .cat-nose {
+            position: absolute;
+            top: 34px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 7px;
+            background: linear-gradient(180deg, #ffab91 0%, #ff8a65 100%);
+            border-radius: 50% 50% 40% 40%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Mouth */
+        .cat-mouth {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 10px;
+        }
+
+        .cat-mouth-line {
+            position: absolute;
+            width: 8px;
+            height: 6px;
+            border: 2px solid transparent;
+            border-bottom-color: #8d6e63;
+            border-radius: 0 0 50% 50%;
+        }
+
+        .cat-mouth-line.left {
+            left: 0;
+            transform: rotate(10deg);
+        }
+
+        .cat-mouth-line.right {
+            right: 0;
+            transform: rotate(-10deg);
+        }
+
+        /* Whiskers */
+        .cat-whiskers {
+            position: absolute;
+            top: 36px;
+            left: 0;
+            right: 0;
+        }
+
+        .cat-whisker {
+            position: absolute;
+            width: 28px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, #8d6e63, #8d6e63);
+            opacity: 0.7;
+        }
+
+        .cat-whisker.l1 { left: -22px; top: -4px; transform: rotate(-8deg); }
+        .cat-whisker.l2 { left: -25px; top: 3px; transform: rotate(0deg); }
+        .cat-whisker.l3 { left: -22px; top: 10px; transform: rotate(8deg); }
+        .cat-whisker.r1 { right: -22px; top: -4px; transform: rotate(8deg) scaleX(-1); }
+        .cat-whisker.r2 { right: -25px; top: 3px; transform: scaleX(-1); }
+        .cat-whisker.r3 { right: -22px; top: 10px; transform: rotate(-8deg) scaleX(-1); }
+
+        /* Cat Paws */
+        .cat-paw {
+            position: absolute;
+            bottom: -6px;
+            width: 22px;
+            height: 16px;
+            background: linear-gradient(180deg, #ffeb3b 0%, #ffd54f 100%);
+            border-radius: 8px 8px 10px 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .cat-paw.left { left: 8px; }
+        .cat-paw.right { right: 8px; }
+
+        .cat-paw::before,
+        .cat-paw::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            width: 4px;
+            height: 3px;
+            background: #f9a825;
+            border-radius: 50%;
+        }
+
+        .cat-paw::before { left: 5px; }
+        .cat-paw::after { right: 5px; }
+
+        /* Cat Tail */
+        .cat-tail {
+            position: absolute;
+            right: -45px;
+            bottom: 20px;
+            width: 55px;
+            height: 14px;
+            background: linear-gradient(90deg, #ffd54f 0%, #f9c846 50%, #f9a825 100%);
+            border-radius: 7px;
+            transform-origin: left center;
+            animation: tail-wag 0.7s ease-in-out infinite;
+            box-shadow: 0 3px 10px rgba(255, 213, 79, 0.3);
+        }
+
+        .cat-tail::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: 1px;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #ffd54f, #f9a825);
+            border-radius: 50%;
+        }
+
+        @keyframes tail-wag {
+            0%, 100% { transform: rotate(-12deg); }
+            50% { transform: rotate(12deg); }
+        }
+
+        /* Cat Cheeks */
+        .cat-cheek {
+            position: absolute;
+            top: 28px;
+            width: 12px;
+            height: 8px;
+            background: rgba(255, 171, 145, 0.4);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .cat-cheek.left { left: 2px; }
+        .cat-cheek.right { right: 2px; }
+
         /* Speech Bubble */
         .speech-bubble {
             position: absolute;
-            top: 30px;
-            left: 55%;
-            background: rgba(255,255,255,0.95);
+            top: 40px;
+            left: 58%;
+            background: rgba(255, 255, 255, 0.98);
             color: #333;
-            padding: 12px 18px;
-            border-radius: 18px;
+            padding: 14px 20px;
+            border-radius: 20px;
             font-size: 0.95em;
-            max-width: 220px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            max-width: 240px;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(0, 0, 0, 0.03);
             animation: bubble-float 3s ease-in-out infinite;
-            z-index: 20;
+            z-index: 30;
         }
-        
-        .speech-bubble::after {
+
+        .speech-bubble::before {
             content: '';
             position: absolute;
-            bottom: -8px;
-            left: 20px;
-            border: 8px solid transparent;
-            border-top-color: rgba(255,255,255,0.95);
+            bottom: -10px;
+            left: 25px;
+            border: 10px solid transparent;
+            border-top-color: rgba(255, 255, 255, 0.98);
             border-bottom: 0;
         }
-        
+
         @keyframes bubble-float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            50% { transform: translateY(-5px); }
         }
-        
-        /* Status Badge */
-        .status-badge {
+
+        /* Working Indicator */
+        .working-indicator {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(0, 200, 83, 0.2);
-            border: 1px solid var(--success);
-            color: var(--success);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8em;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             align-items: center;
             gap: 6px;
+            background: rgba(79, 195, 247, 0.15);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            padding: 4px 12px;
+            border-radius: 100px;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-        
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--success);
+
+        .working-indicator.active {
+            opacity: 1;
+        }
+
+        .working-indicator span {
+            font-size: 0.75em;
+            color: var(--accent-cyan);
+        }
+
+        .working-dots {
+            display: flex;
+            gap: 3px;
+        }
+
+        .working-dots span {
+            width: 4px;
+            height: 4px;
+            background: var(--accent-cyan);
             border-radius: 50%;
-            animation: pulse-dot 1.5s ease-in-out infinite;
+            animation: dot-bounce 1.2s ease-in-out infinite;
         }
-        
-        @keyframes pulse-dot {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.5); }
-            50% { box-shadow: 0 0 0 6px rgba(0, 200, 83, 0); }
+
+        .working-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .working-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes dot-bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
         }
-        
-        /* ====== STATS GRID ====== */
-        .stats-grid {
+
+        /* Plant Decoration */
+        .plant {
+            position: absolute;
+            bottom: 92px;
+            left: 12%;
+        }
+
+        .plant-pot {
+            width: 35px;
+            height: 30px;
+            background: linear-gradient(180deg, #d7ccc8 0%, #a1887f 100%);
+            border-radius: 3px 3px 8px 8px;
+            position: relative;
+        }
+
+        .plant-pot::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -3px;
+            right: -3px;
+            height: 8px;
+            background: linear-gradient(180deg, #bcaaa4, #a1887f);
+            border-radius: 3px;
+        }
+
+        .plant-leaves {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 28px;
+            animation: plant-sway 4s ease-in-out infinite;
+        }
+
+        @keyframes plant-sway {
+            0%, 100% { transform: translateX(-50%) rotate(-2deg); }
+            50% { transform: translateX(-50%) rotate(2deg); }
+        }
+
+        /* Stats Section */
+        .stats-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
         }
-        
+
+        @media (max-width: 1000px) {
+            .stats-section { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .stats-section { grid-template-columns: 1fr; }
+        }
+
         .stat-card {
             background: var(--bg-card);
-            border-radius: 16px;
-            padding: 20px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 24px;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
         }
-        
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
+
         .stat-card::before {
             content: '';
             position: absolute;
-            top: -30px;
-            right: -30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            opacity: 0.15;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--stat-color);
+            opacity: 0.5;
         }
-        
-        .stat-card.cyan::before { background: var(--accent); }
-        .stat-card.purple::before { background: var(--purple); }
-        .stat-card.pink::before { background: var(--danger); }
-        .stat-card.green::before { background: var(--success); }
-        
-        .stat-icon {
-            font-size: 1.8em;
-            margin-bottom: 10px;
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
-        
-        .stat-value {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .stat-card.cyan .stat-value { color: var(--accent); }
-        .stat-card.purple .stat-value { color: var(--purple); }
-        .stat-card.pink .stat-value { color: var(--danger); }
-        .stat-card.green .stat-value { color: var(--success); }
-        
-        .stat-label {
-            color: #888;
-            font-size: 0.85em;
-        }
-        
-        .stat-sub {
-            color: #555;
-            font-size: 0.75em;
-            margin-top: 5px;
-        }
-        
-        /* ====== ACTIVITY & INFO PANELS ====== */
-        .panels-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        @media (max-width: 768px) {
-            .panels-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .panel {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .panel-title {
-            font-size: 1.1em;
-            margin-bottom: 15px;
+
+        .stat-card.cyan { --stat-color: var(--accent-cyan); }
+        .stat-card.purple { --stat-color: var(--accent-purple); }
+        .stat-card.pink { --stat-color: var(--accent-pink); }
+        .stat-card.green { --stat-color: var(--accent-green); }
+
+        .stat-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            margin-bottom: 16px;
         }
-        
-        .panel-title.cyan { color: var(--accent); }
-        .panel-title.yellow { color: var(--primary); }
-        
-        /* Skills List */
-        .skills-list {
-            list-style: none;
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
         }
-        
-        .skills-list li {
-            padding: 10px 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 8px;
-            margin-bottom: 8px;
+
+        .stat-label {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 2.2em;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--stat-color);
+            margin-bottom: 4px;
+        }
+
+        .stat-sub {
+            font-size: 0.8em;
+            color: var(--text-muted);
+        }
+
+        /* Panels Grid */
+        .panels-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .panels-grid { grid-template-columns: 1fr; }
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .panel-header {
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .panel-icon {
+            font-size: 1.3em;
+        }
+
+        .panel-title {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .panel-title.yellow { color: var(--accent-yellow); }
+        .panel-title.cyan { color: var(--accent-cyan); }
+
+        /* Skills List */
+        .skills-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
             font-size: 0.9em;
-            transition: background 0.2s;
         }
-        
-        .skills-list li:hover {
-            background: rgba(255,255,255,0.1);
+
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--border-subtle);
         }
-        
-        .skills-list li.active {
-            background: rgba(79, 195, 247, 0.15);
-            border-left: 3px solid var(--accent);
+
+        .skill-item.active {
+            background: rgba(79, 195, 247, 0.08);
+            border-color: rgba(79, 195, 247, 0.2);
         }
-        
+
+        .skill-item.active .skill-name {
+            color: var(--accent-cyan);
+        }
+
+        .skill-icon {
+            font-size: 1.2em;
+            width: 28px;
+            text-align: center;
+        }
+
+        .skill-info {
+            flex: 1;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .skill-desc {
+            font-size: 0.8em;
+            color: var(--text-muted);
+        }
+
         /* Activity Log */
         .activity-log {
-            max-height: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 220px;
             overflow-y: auto;
+            padding-right: 8px;
         }
-        
+
+        .activity-log::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .activity-log::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
         .log-item {
-            padding: 8px 12px;
-            border-left: 2px solid var(--accent);
-            margin-bottom: 8px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            border-left: 2px solid var(--accent-cyan);
+        }
+
+        .log-icon {
+            font-size: 1em;
+            flex-shrink: 0;
+        }
+
+        .log-content {
+            flex: 1;
             font-size: 0.85em;
         }
-        
+
         .log-time {
-            color: #555;
             font-size: 0.75em;
-            margin-left: 8px;
+            color: var(--text-muted);
+            flex-shrink: 0;
         }
-        
-        /* Progress Bar */
-        .progress-container {
-            margin-top: 10px;
+
+        /* Progress Section */
+        .progress-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
         }
-        
-        .progress-label {
+
+        .progress-header {
             display: flex;
             justify-content: space-between;
-            font-size: 0.85em;
-            margin-bottom: 6px;
+            align-items: center;
+            margin-bottom: 10px;
         }
-        
+
+        .progress-title {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+        }
+
+        .progress-value {
+            font-size: 0.85em;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-yellow);
+        }
+
         .progress-bar {
             height: 8px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 4px;
             overflow: hidden;
         }
-        
+
         .progress-fill {
             height: 100%;
+            background: linear-gradient(90deg, var(--accent-yellow) 0%, var(--accent-green) 100%);
             border-radius: 4px;
             transition: width 1s ease-out;
+            box-shadow: 0 0 10px rgba(255, 213, 79, 0.3);
         }
-        
-        .progress-fill.gradient {
-            background: linear-gradient(90deg, var(--accent), var(--success));
+
+        /* Time Saved */
+        .time-saved-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
         }
-        
-        /* Time Saved Visualization */
-        .time-saved {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+
+        .time-saved-header {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
         }
-        
-        .time-bar-container {
+
+        .time-bars {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-top: 10px;
+            gap: 20px;
         }
-        
+
         .time-bar {
             flex: 1;
         }
-        
+
         .time-bar-label {
             font-size: 0.75em;
-            color: #666;
-            margin-bottom: 4px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
         }
-        
+
+        .time-bar-track {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .time-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1.5s ease-out;
+        }
+
+        .time-bar-fill.ai {
+            background: var(--accent-cyan);
+            width: 12%;
+        }
+
+        .time-bar-fill.human {
+            background: var(--accent-green);
+            width: 100%;
+        }
+
         .time-bar-value {
-            font-size: 0.85em;
-            margin-top: 4px;
-        }
-        
-        .time-vs {
-            color: #444;
             font-size: 0.8em;
+            font-family: 'JetBrains Mono', monospace;
         }
-        
+
+        .time-bar-value.cyan { color: var(--accent-cyan); }
+        .time-bar-value.green { color: var(--accent-green); }
+
+        .time-vs {
+            font-size: 0.8em;
+            color: var(--text-muted);
+        }
+
+        .time-saved-result {
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(105, 240, 174, 0.08);
+            border-radius: 10px;
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
-            padding: 25px;
-            color: #555;
+            padding: 40px;
+            color: var(--text-muted);
             font-size: 0.85em;
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 40px;
         }
-        
-        .footer .highlight {
-            color: var(--primary);
+
+        .footer .brand {
+            color: var(--accent-yellow);
+            font-weight: 500;
         }
-        
+
         .footer .dev {
-            color: var(--accent);
+            color: var(--accent-cyan);
+        }
+
+        .footer .user {
+            color: var(--accent-yellow);
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🟡 葡撻哈哈的虛擬辦公室</h1>
-        <div class="subtitle">歡迎燕豪主人視察 💼 | 專屬 AI 助手實時監控</div>
-    </div>
-    
-    <div class="main-container">
+    <div class="bg-pattern"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">🥧</div>
+            <div class="logo-text">
+                <h1>葡撻哈哈</h1>
+                <p>AI 虛擬辦公室</p>
+            </div>
+        </div>
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span class="status-text">Online · 工作中</span>
+        </div>
+    </header>
+
+    <main class="main-container">
         <!-- Office Scene -->
         <div class="office-scene">
-            <!-- Status Badge -->
-            <div class="status-badge">
-                <div class="status-dot"></div>
-                <span>Online - 工作中</span>
-            </div>
-            
+            <!-- Ambient Lighting -->
+            <div class="ambient-glow yellow"></div>
+            <div class="ambient-glow cyan"></div>
+
             <!-- Window -->
-            <div class="window">
-                <div class="sun">☀️</div>
-                <div class="clouds" style="top: 30px; left: 10px;">☁️</div>
+            <div class="window-container">
+                <div class="window">
+                    <div class="sun"></div>
+                    <span class="cloud">☁️</span>
+                    <span class="cloud">☁️</span>
+                    <div class="window-cross-h"></div>
+                    <div class="window-cross-v"></div>
+                </div>
             </div>
-            
+
+            <!-- Plant -->
+            <div class="plant">
+                <div class="plant-leaves">🌿</div>
+                <div class="plant-pot"></div>
+            </div>
+
             <!-- Speech Bubble -->
             <div class="speech-bubble" id="speech">
                 喵～主人好！我係葡撻哈哈，正在為您工作中！🥧
             </div>
-            
-            <!-- Yellow Cat -->
-            <div class="yellow-cat" id="cat">
-                <div class="working-indicator" id="working">⚡</div>
-                
-                <div class="cat-body">
-                    <div class="cat-paw left"></div>
-                    <div class="cat-paw right"></div>
-                    <div class="cat-tail"></div>
-                    
-                    <div class="cat-head">
-                        <div class="cat-ear left"></div>
-                        <div class="cat-ear right"></div>
-                        <div class="cat-ear-inner left"></div>
-                        <div class="cat-ear-inner right"></div>
-                        
-                        <div class="cat-eye left">
-                            <div class="cat-pupil"></div>
-                            <div class="cat-eye-shine"></div>
+
+            <!-- Yellow Cat (葡撻哈哈) -->
+            <div class="cat-container" id="cat">
+                <div class="working-indicator" id="working">
+                    <span>工作中</span>
+                    <div class="working-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="cat">
+                    <div class="cat-shadow"></div>
+
+                    <div class="cat-body">
+                        <div class="cat-body-main"></div>
+                        <div class="cat-body-highlight"></div>
+
+                        <div class="cat-paw left"></div>
+                        <div class="cat-paw right"></div>
+                        <div class="cat-tail"></div>
+
+                        <div class="cat-head">
+                            <div class="cat-head-main"></div>
+                            <div class="cat-head-highlight"></div>
+
+                            <div class="cat-ear left"></div>
+                            <div class="cat-ear right"></div>
+                            <div class="cat-ear-inner left"></div>
+                            <div class="cat-ear-inner right"></div>
+
+                            <div class="cat-face">
+                                <div class="cat-eye left">
+                                    <div class="cat-iris">
+                                        <div class="cat-pupil"></div>
+                                    </div>
+                                    <div class="cat-eye-shine"></div>
+                                    <div class="cat-eye-shine-small"></div>
+                                    <div class="cat-eyelid"></div>
+                                </div>
+                                <div class="cat-eye right">
+                                    <div class="cat-iris">
+                                        <div class="cat-pupil"></div>
+                                    </div>
+                                    <div class="cat-eye-shine"></div>
+                                    <div class="cat-eye-shine-small"></div>
+                                    <div class="cat-eyelid"></div>
+                                </div>
+
+                                <div class="cat-cheek left"></div>
+                                <div class="cat-cheek right"></div>
+
+                                <div class="cat-nose"></div>
+                                <div class="cat-mouth">
+                                    <div class="cat-mouth-line left"></div>
+                                    <div class="cat-mouth-line right"></div>
+                                </div>
+
+                                <div class="cat-whiskers">
+                                    <div class="cat-whisker l1"></div>
+                                    <div class="cat-whisker l2"></div>
+                                    <div class="cat-whisker l3"></div>
+                                    <div class="cat-whisker r1"></div>
+                                    <div class="cat-whisker r2"></div>
+                                    <div class="cat-whisker r3"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="cat-eye right">
-                            <div class="cat-pupil"></div>
-                            <div class="cat-eye-shine"></div>
-                        </div>
-                        
-                        <div class="cat-nose"></div>
-                        <div class="cat-mouth"></div>
-                        
-                        <div class="cat-whisker l1"></div>
-                        <div class="cat-whisker l2"></div>
-                        <div class="cat-whisker l3"></div>
-                        <div class="cat-whisker r1"></div>
-                        <div class="cat-whisker r2"></div>
-                        <div class="cat-whisker r3"></div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Desk Area -->
             <div class="desk-area">
                 <div class="monitor">
-                    <div class="monitor-screen" id="screen">💻</div>
+                    <div class="monitor-screen">
+                        <div class="monitor-content" id="screen">💻</div>
+                    </div>
+                    <div class="monitor-stand"></div>
+                    <div class="monitor-base"></div>
                 </div>
-                <div class="keyboard"></div>
-                <div class="desk-surface"></div>
+
+                <div class="keyboard">
+                    <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                    <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                    <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                    <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                    <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                    <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+                </div>
+
+                <div class="coffee">
+                    <div class="steam">
+                        <div class="steam-line"></div>
+                        <div class="steam-line"></div>
+                        <div class="steam-line"></div>
+                    </div>
+                    <div class="coffee-cup">
+                        <div class="coffee-liquid"></div>
+                    </div>
+                </div>
+
+                <div class="desk">
+                    <div class="desk-top"></div>
+                    <div class="desk-front">
+                        <div class="desk-drawer"></div>
+                        <div class="desk-drawer"></div>
+                        <div class="desk-drawer"></div>
+                        <div class="desk-drawer"></div>
+                    </div>
+                </div>
             </div>
-            
-            <div class="coffee-cup">☕</div>
         </div>
-        
-        <!-- Stats Grid -->
-        <div class="stats-grid">
+
+        <!-- Stats Section -->
+        <div class="stats-section">
             <div class="stat-card cyan">
-                <div class="stat-icon">💬</div>
+                <div class="stat-header">
+                    <div class="stat-icon">💬</div>
+                    <div class="stat-label">今日訊息</div>
+                </div>
                 <div class="stat-value" id="stat-messages">0</div>
-                <div class="stat-label">今日訊息</div>
                 <div class="stat-sub" id="stat-tasks">0 個任務完成</div>
             </div>
             <div class="stat-card purple">
-                <div class="stat-icon">🔢</div>
+                <div class="stat-header">
+                    <div class="stat-icon">🔢</div>
+                    <div class="stat-label">Token 使用</div>
+                </div>
                 <div class="stat-value" id="stat-tokens">0</div>
-                <div class="stat-label">Token 使用</div>
-                <div class="stat-sub">輸入: 0 / 輸出: 0</div>
+                <div class="stat-sub">輸入: 0K / 輸出: 0K</div>
             </div>
             <div class="stat-card pink">
-                <div class="stat-icon">💰</div>
-                <div class="stat-value" id="stat-cost">$0.00</div>
-                <div class="stat-label">API 成本 (USD)</div>
+                <div class="stat-header">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-label">API 成本</div>
+                </div>
+                <div class="stat-value" id="stat-cost">$0</div>
                 <div class="stat-sub">今日: $0.00</div>
             </div>
             <div class="stat-card green">
-                <div class="stat-icon">📈</div>
+                <div class="stat-header">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-label">節省金額</div>
+                </div>
                 <div class="stat-value" id="stat-savings">$0</div>
-                <div class="stat-label">節省金額 (USD)</div>
                 <div class="stat-sub">ROI 計算中...</div>
             </div>
         </div>
-        
+
         <!-- Panels -->
         <div class="panels-grid">
             <!-- Skills Panel -->
             <div class="panel">
-                <div class="panel-title cyan">
-                    <span>🛠️</span> 已安裝技能
+                <div class="panel-header">
+                    <span class="panel-icon">🛠️</span>
+                    <h3 class="panel-title yellow">已安裝技能</h3>
                 </div>
                 <ul class="skills-list">
-                    <li class="active">🔍 tavily - AI 網絡搜索</li>
-                    <li>🧠 self-improving-agent - 自我改進</li>
-                    <li>🔎 find-skills - 技能發現</li>
-                    <li>📝 summarize - 內容總結</li>
-                    <li>📧 gog - Google Workspace</li>
-                    <li>🌐 agent-browser - 瀏覽器自動化</li>
-                    <li>🤖 codex - OpenAI 編程助手</li>
+                    <li class="skill-item active">
+                        <span class="skill-icon">🔍</span>
+                        <div class="skill-info">
+                            <div class="skill-name">tavily</div>
+                            <div class="skill-desc">AI 網絡搜索</div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-icon">🧠</span>
+                        <div class="skill-info">
+                            <div class="skill-name">self-improving-agent</div>
+                            <div class="skill-desc">自我改進學習</div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-icon">🔎</span>
+                        <div class="skill-info">
+                            <div class="skill-name">find-skills</div>
+                            <div class="skill-desc">技能發現</div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-icon">📝</span>
+                        <div class="skill-info">
+                            <div class="skill-name">summarize</div>
+                            <div class="skill-desc">內容總結</div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-icon">📧</span>
+                        <div class="skill-info">
+                            <div class="skill-name">gog</div>
+                            <div class="skill-desc">Google Workspace</div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-icon">🌐</span>
+                        <div class="skill-info">
+                            <div class="skill-name">agent-browser</div>
+                            <div class="skill-desc">瀏覽器自動化</div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span class="skill-icon">🤖</span>
+                        <div class="skill-info">
+                            <div class="skill-name">codex</div>
+                            <div class="skill-desc">OpenAI 編程助手</div>
+                        </div>
+                    </li>
                 </ul>
             </div>
-            
+
             <!-- Activity Panel -->
             <div class="panel">
-                <div class="panel-title yellow">
-                    <span>📋</span> 最近活動
+                <div class="panel-header">
+                    <span class="panel-icon">📋</span>
+                    <h3 class="panel-title cyan">最近活動</h3>
                 </div>
                 <div class="activity-log">
                     <div class="log-item">
-                        ✅ 建立虛擬辦公室 Dashboard
-                        <span class="log-time">14:05</span>
+                        <span class="log-icon">✅</span>
+                        <div class="log-content">建立虛擬辦公室 Dashboard v2.0</div>
+                        <span class="log-time">14:25</span>
                     </div>
                     <div class="log-item">
-                        ✅ 安裝 @openai/codex CLI v0.114.0
+                        <span class="log-icon">✅</span>
+                        <div class="log-content">學習 openclaw-office 技能並應用</div>
+                        <span class="log-time">14:06</span>
+                    </div>
+                    <div class="log-item">
+                        <span class="log-icon">✅</span>
+                        <div class="log-content">安裝 @openai/codex CLI v0.114.0</div>
                         <span class="log-time">13:52</span>
                     </div>
                     <div class="log-item">
-                        ✅ 安裝 gws-workflow 技能
+                        <span class="log-icon">✅</span>
+                        <div class="log-content">安裝 gws-workflow 技能</div>
                         <span class="log-time">13:25</span>
                     </div>
                     <div class="log-item">
-                        🔍 搜索 ClawHub 實用技能
+                        <span class="log-icon">🔍</span>
+                        <div class="log-content">搜索 ClawHub 實用技能</div>
                         <span class="log-time">13:22</span>
                     </div>
                     <div class="log-item">
-                        📊 分析美伊衝突預測
+                        <span class="log-icon">📊</span>
+                        <div class="log-content">分析美伊衝突預測數據</div>
                         <span class="log-time">12:41</span>
                     </div>
-                    <div class="log-item">
-                        🧬 研究 Capability Evolver
-                        <span class="log-time">12:30</span>
-                    </div>
                 </div>
-                
+
                 <!-- Token Progress -->
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>🔋 Token 配額</span>
-                        <span id="token-percent">65%</span>
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span class="progress-title">🔋 Token 配額</span>
+                        <span class="progress-value" id="token-percent">65%</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill gradient" id="token-bar" style="width: 65%;"></div>
+                        <div class="progress-fill" id="token-bar" style="width: 65%;"></div>
                     </div>
                 </div>
-                
+
                 <!-- Time Saved -->
-                <div class="time-saved">
-                    <div style="font-size: 0.85em; color: #888;">⏰ 時間節省對比</div>
-                    <div class="time-bar-container">
+                <div class="time-saved-section">
+                    <div class="time-saved-header">⏰ 時間節省對比</div>
+                    <div class="time-bars">
                         <div class="time-bar">
                             <div class="time-bar-label">AI 處理時間</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 15%; background: var(--accent);"></div>
+                            <div class="time-bar-track">
+                                <div class="time-bar-fill ai"></div>
                             </div>
-                            <div class="time-bar-value" style="color: var(--accent);">2h 15m</div>
+                            <div class="time-bar-value cyan">2h 15m</div>
                         </div>
                         <div class="time-vs">vs</div>
                         <div class="time-bar">
                             <div class="time-bar-label">人工等效時間</div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 100%; background: var(--success);"></div>
+                            <div class="time-bar-track">
+                                <div class="time-bar-fill human"></div>
                             </div>
-                            <div class="time-bar-value" style="color: var(--success);">18h 30m</div>
+                            <div class="time-bar-value green">18h 30m</div>
                         </div>
                     </div>
-                    <div style="text-align: center; margin-top: 10px; color: var(--success); font-weight: bold;">
-                        🚀 節省 16+ 小時！
+                    <div class="time-saved-result">
+                        🚀 節省超過 16 小時！
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="footer">
-        <span class="highlight">🥧 葡撻哈哈</span> — 專屬於 <span class="highlight">燕豪</span> 的黃色小貓助手
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <span class="brand">🥧 葡撻哈哈</span> — 專屬於 <span class="user">燕豪</span> 的黃色小貓助手
         <br>
-        <span class="dev">Mac mini</span> @ user的Mac mini | Model: zai/glm-5 | 只為你工作 💪
-    </div>
-    
+        <span class="dev">Mac mini</span> @ user的Mac mini | Model: zai/glm-5 | 💪 只為你工作
+    </footer>
+
     <script>
-        // ====== ANIMATED STATS (Learned from openclaw-office) ======
+        // ====== ANIMATED STATS ======
         const targetStats = {
             messages: 47,
             tokens: 8247,
@@ -869,32 +1694,31 @@
             savings: 127,
             tasks: 12
         };
-        
+
         function animateValue(elementId, target, duration = 1500, prefix = '', suffix = '') {
             const element = document.getElementById(elementId);
             const startTime = performance.now();
-            const startValue = 0;
-            
+
             function update(currentTime) {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
                 const easeOut = 1 - Math.pow(1 - progress, 3);
-                const currentValue = startValue + (target - startValue) * easeOut;
-                
+                const currentValue = (target * easeOut);
+
                 if (prefix === '$') {
-                    element.textContent = prefix + currentValue.toFixed(2) + suffix;
+                    element.textContent = prefix + (target >= 100 ? Math.floor(currentValue) : currentValue.toFixed(2)) + suffix;
                 } else {
                     element.textContent = prefix + Math.floor(currentValue).toLocaleString() + suffix;
                 }
-                
+
                 if (progress < 1) {
                     requestAnimationFrame(update);
                 }
             }
-            
+
             requestAnimationFrame(update);
         }
-        
+
         // Start animations
         setTimeout(() => {
             animateValue('stat-messages', targetStats.messages);
@@ -903,8 +1727,8 @@
             animateValue('stat-savings', targetStats.savings, 1500, '$', '');
             document.getElementById('stat-tasks').textContent = targetStats.tasks + ' 個任務完成';
         }, 500);
-        
-        // ====== SPEECH BUBBLE ROTATION (Learned from AgentSprite) ======
+
+        // ====== SPEECH BUBBLE ROTATION ======
         const speeches = [
             "喵～主人好！我係葡撻哈哈，正在為您工作中！🥧",
             "喵喵～有咩可以幫到您？",
@@ -913,10 +1737,9 @@
             "隨時待命！💪",
             "葡撻哈哈準備好啦！🥧",
             "寫緊代碼喵～ ⌨️",
-            "幫主人搵資料中... 🔍",
-            "喵～今日效率不錯！📈"
+            "幫主人搵資料中... 🔍"
         ];
-        
+
         let speechIndex = 0;
         setInterval(() => {
             speechIndex = (speechIndex + 1) % speeches.length;
@@ -927,39 +1750,36 @@
                 bubble.style.opacity = 1;
             }, 300);
         }, 5000);
-        
+
         // ====== SCREEN EMOJI ROTATION ======
-        const screenEmojis = ['💻', '📝', '🔍', '📊', '🛠️', '🥧', '⚡'];
+        const screenEmojis = ['💻', '📝', '🔍', '📊', '🛠️', '🥧'];
         let emojiIndex = 0;
         setInterval(() => {
             emojiIndex = (emojiIndex + 1) % screenEmojis.length;
             document.getElementById('screen').textContent = screenEmojis[emojiIndex];
         }, 4000);
-        
+
         // ====== WORKING INDICATOR (Random) ======
         setInterval(() => {
             const working = document.getElementById('working');
-            if (Math.random() > 0.6) {
+            if (Math.random() > 0.5) {
                 working.classList.add('active');
                 setTimeout(() => {
                     working.classList.remove('active');
-                }, 2000);
+                }, 2500);
             }
-        }, 5000);
-        
+        }, 6000);
+
         // ====== CAT CLICK INTERACTION ======
         document.getElementById('cat').addEventListener('click', () => {
             const bubble = document.getElementById('speech');
-            const meows = ['喵！🐱', '喵喵～🥧', '喵... 主人叫我有咩事？', '喵喵喵！❤️'];
-            bubble.textContent = meows[Math.floor(Math.random() * meows.length)];
+            const meows = ['喵！🐱', '喵喵～🥧', '喵... 主人叫我有咩事？', '喵喵喵！❤️', '呼嚕呼嚕～💫'];
+            bubble.style.opacity = 0;
+            setTimeout(() => {
+                bubble.textContent = meows[Math.floor(Math.random() * meows.length)];
+                bubble.style.opacity = 1;
+            }, 200);
         });
-        
-        // ====== UPDATE TIME ======
-        function updateTime() {
-            const now = new Date();
-            // You could add a live clock display here
-        }
-        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
